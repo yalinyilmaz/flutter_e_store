@@ -56,10 +56,10 @@ extension TextThemeExtension on TextTheme {
   ///HEADLINES           =>           //** FONTSİZE - 17 **//
 
   TextStyle get headlineRegular =>
-      const TextStyle(color: Colors.black).semiEmphasized.newSize(17);
+      const TextStyle(color: Colors.black).semiEmphasized.newSize(19);
 
   TextStyle get headlineItalic =>
-      const TextStyle(color: Colors.black).semiEmphasized.italic.newSize(17);
+      const TextStyle(color: Colors.black).semiEmphasized.italic.newSize(19);
 
   ///BODIES           =>           //** FONTSİZE - 17 **//
 

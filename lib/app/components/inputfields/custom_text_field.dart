@@ -35,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final bool? autoFocus;
   final int? maxLength;
   final bool noBackgroundColor;
+  final double padding;
 
   CustomTextField._({
     super.key,
@@ -63,6 +64,7 @@ class CustomTextField extends StatefulWidget {
     required this.liveValidation,
     this.maxLength,
     this.noBackgroundColor = false,
+    this.padding = 8.0,
   }) {}
 
   factory CustomTextField({
@@ -90,6 +92,7 @@ class CustomTextField extends StatefulWidget {
     required bool isRequired,
     int? maxLength,
     bool noBackgroundColor = false,
+    double padding = 8.0,
   }) =>
       CustomTextField._(
         hintText: hintText ?? "",
@@ -116,6 +119,7 @@ class CustomTextField extends StatefulWidget {
         focusNode: focusNode,
         maxLength: maxLength,
         noBackgroundColor: noBackgroundColor,
+        padding: padding,
       );
 
   factory CustomTextField.obscure({
@@ -140,6 +144,7 @@ class CustomTextField extends StatefulWidget {
     required bool isRequired,
     FocusNode? focusNode,
     int? maxLength,
+    double padding = 8.0,
   }) =>
       CustomTextField._(
         hintText: hintText ?? "",
@@ -164,6 +169,7 @@ class CustomTextField extends StatefulWidget {
         focusNode: focusNode,
         autoFocus: autoFocus,
         maxLength: maxLength,
+        padding: padding,
       );
 
   @override
@@ -204,68 +210,71 @@ class _CompCustomTextfieldState extends State<CustomTextField> {
               color: context.whiteColor.shade100,
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: context.greyColor.shade300)),
-          child: Center(
-            child: TextFormField(
-              style: context.textTheme.subheadlineRegular.copyWith(
-                  color: globalCtx.greyColor.shade600,
-                  decoration: TextDecoration.none),
-              textAlign: widget.labelText == 'İşlem Tutarı'
-                  ? TextAlign.right
-                  : TextAlign.start,
-              autofocus: widget.autoFocus ?? false,
-              expands: widget.maxLines != 1,
-              controller: widget.controller,
-              inputFormatters: widget.inputFormatters,
-              keyboardType: widget.keyboardType,
-              enableInteractiveSelection: widget.enableInteractiveSelection,
-              maxLines: widget.maxLines != 1 ? null : 1,
-              minLines: widget.maxLines != 1 ? null : 1,
-              maxLength: widget.hintText == '00' ? 2 : widget.maxLength,
-              onChanged: (value) {
-                setState(() {
-                  liveError = widget.validator?.call(value);
-                  hasError = !(liveError?.isEmpty ?? true);
-                });
-                if (widget.onChanged != null) {
-                  widget.onChanged!(value);
-                }
-              },
-              onSaved: (newValue) {},
-              onFieldSubmitted: (value) {
-                if (widget.onSubmit != null) {
-                  widget.onSubmit!(value);
-                }
-              },
-              obscureText: isObscureMode & !showing,
-              focusNode: widget.focusNode,
-              initialValue:
-                  widget.controller == null ? widget.initialValue : null,
-              readOnly: widget.isReadOnly,
-              decoration: InputDecoration(
-                suffixIconConstraints:
-                    const BoxConstraints(minHeight: 24, minWidth: 24),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                errorText: widget.liveValidation ? liveError : null,
-                errorMaxLines: 1,
-                labelStyle: widget.labelStyle ??
-                    context.textTheme.footnoteEmphasized
-                        .copyWith(color: globalCtx.greyColor.shade400),
-                hintStyle: widget.labelStyle ??
-                    context.textTheme.footnoteEmphasized
-                        .copyWith(color: globalCtx.greyColor.shade400),
-                hintText:
-                    "${widget.labelText} ${widget.isRequired ? "(*)" : ""}",
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: isObscureMode
-                    ? GestureDetector(
-                        onTap: () => setState(() => showing = !showing),
-                        child: widget.suffixBuilder!(
-                          !showing,
-                          focusing,
-                        ),
-                      )
-                    : widget.suffixIcon,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: widget.padding),
+            child: Center(
+              child: TextFormField(
+                style: context.textTheme.subheadlineRegular.copyWith(
+                    color: globalCtx.greyColor.shade600,
+                    decoration: TextDecoration.none),
+                textAlign: widget.labelText == 'İşlem Tutarı'
+                    ? TextAlign.right
+                    : TextAlign.start,
+                autofocus: widget.autoFocus ?? false,
+                expands: widget.maxLines != 1,
+                controller: widget.controller,
+                inputFormatters: widget.inputFormatters,
+                keyboardType: widget.keyboardType,
+                enableInteractiveSelection: widget.enableInteractiveSelection,
+                maxLines: widget.maxLines != 1 ? null : 1,
+                minLines: widget.maxLines != 1 ? null : 1,
+                maxLength: widget.hintText == '00' ? 2 : widget.maxLength,
+                onChanged: (value) {
+                  setState(() {
+                    liveError = widget.validator?.call(value);
+                    hasError = !(liveError?.isEmpty ?? true);
+                  });
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(value);
+                  }
+                },
+                onSaved: (newValue) {},
+                onFieldSubmitted: (value) {
+                  if (widget.onSubmit != null) {
+                    widget.onSubmit!(value);
+                  }
+                },
+                obscureText: isObscureMode & !showing,
+                focusNode: widget.focusNode,
+                initialValue:
+                    widget.controller == null ? widget.initialValue : null,
+                readOnly: widget.isReadOnly,
+                decoration: InputDecoration(
+                  suffixIconConstraints:
+                      const BoxConstraints(minHeight: 24, minWidth: 24),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorText: widget.liveValidation ? liveError : null,
+                  errorMaxLines: 1,
+                  labelStyle: widget.labelStyle ??
+                      context.textTheme.footnoteEmphasized
+                          .copyWith(color: globalCtx.greyColor.shade400),
+                  hintStyle: widget.labelStyle ??
+                      context.textTheme.footnoteEmphasized
+                          .copyWith(color: globalCtx.greyColor.shade400),
+                  hintText:
+                      "${widget.labelText} ${widget.isRequired ? "(*)" : ""}",
+                  prefixIcon: widget.prefixIcon,
+                  suffixIcon: isObscureMode
+                      ? GestureDetector(
+                          onTap: () => setState(() => showing = !showing),
+                          child: widget.suffixBuilder!(
+                            !showing,
+                            focusing,
+                          ),
+                        )
+                      : widget.suffixIcon,
+                ),
               ),
             ),
           ),

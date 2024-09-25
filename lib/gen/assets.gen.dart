@@ -16,12 +16,19 @@ class $AssetsImagesGen {
   AssetGenImage get advertisementImg =>
       const AssetGenImage('assets/images/advertisement_img.png');
 
+  /// File path: assets/images/board_guy.png
+  AssetGenImage get boardGuy =>
+      const AssetGenImage('assets/images/board_guy.png');
+
   /// File path: assets/images/example_img.png
   AssetGenImage get exampleImg =>
       const AssetGenImage('assets/images/example_img.png');
 
   /// File path: assets/images/female.png
   AssetGenImage get female => const AssetGenImage('assets/images/female.png');
+
+  /// File path: assets/images/infos.png
+  AssetGenImage get infos => const AssetGenImage('assets/images/infos.png');
 
   /// File path: assets/images/kid.png
   AssetGenImage get kid => const AssetGenImage('assets/images/kid.png');
@@ -45,8 +52,10 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         advertisementImg,
+        boardGuy,
         exampleImg,
         female,
+        infos,
         kid,
         mainLogo,
         male,

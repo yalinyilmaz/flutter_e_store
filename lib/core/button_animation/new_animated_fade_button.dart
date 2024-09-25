@@ -7,7 +7,7 @@ import 'new_fade_zoom_transition.dart';
 class AnimatedFadeButton extends StatefulWidget {
   final Widget child;
   final Duration? duration;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final bool visible;
   final double minValue;
   final HitTestBehavior behavior;
@@ -76,7 +76,7 @@ class _AnimatedFadeButtonState extends State<AnimatedFadeButton>
             onTapDown: (details) => setHovering(true),
             onTap: () {
               setHovering(false);
-              widget.onTap();
+              widget.onTap?.call();
             },
             child: FadeZoomTransition(
               routeAnimation: _animation,

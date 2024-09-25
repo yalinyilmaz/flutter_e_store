@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
+import 'package:flutter_e_store/app/components/inputfields/custom_text_field.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
+import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
+import 'package:flutter_e_store/feature/home/view/components/home_infobox_list.dart';
 import 'package:flutter_e_store/feature/home/view/components/home_page_header.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 
@@ -35,7 +38,7 @@ class HomePage extends StatelessWidget {
                         icon: const Icon(Icons.arrow_forward_outlined),
                         isPrimary: false,
                         text: "Detayları incele",
-                        buttonSize: ButtonSize.medium,
+                        buttonSize: ButtonSize.small,
                       ),
                     ],
                   ),
@@ -50,25 +53,18 @@ class HomePage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "OYUNUN KURALLARINI BELİRLE!",
-                              style: context.textTheme.title3Emphasized
-                                  .copyWith(
-                                      color: globalCtx.whiteColor.shade100),
+                            Flexible(
+                              child: Text(
+                                "OYUNUN KURALLARINI BELİRLE!",
+                                style: context.textTheme.title3Emphasized
+                                    .copyWith(
+                                        color: globalCtx.whiteColor.shade100),
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            CustomElevatedButton(
-                              icon: const Icon(Icons.arrow_forward_outlined),
-                              text: "ALIŞVERİŞE BAŞLA",
-                              isPrimary: false,
-                              buttonSize: ButtonSize.medium,
-                            ),
-                          ],
-                        ),
+                        _buildStartShoppingButton(),
                         const SizedBox(height: 20),
                         SizedBox(
                           height: 180,
@@ -88,8 +84,118 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 25),
-                
+                _buildCategoryImages(
+                  img: Assets.images.female.image(),
+                  title: "KADIN",
+                  onTap: () {},
+                ),
+                const SizedBox(height: 25),
+                _buildCategoryImages(
+                  img: Assets.images.male.image(),
+                  title: "ERKEK",
+                  onTap: () {},
+                ),
+                const SizedBox(height: 25),
+                _buildCategoryImages(
+                  img: Assets.images.kid.image(),
+                  title: "ÇOCUK",
+                  onTap: () {},
+                ),
+                const SizedBox(height: 25),
+                Assets.images.advertisementImg.image(),
+                const SizedBox(height: 25),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              "ŞİMDİ, HAREKETE GEÇME ZAMANI!",
+                              style: context.textTheme.title2Emphasized
+                                  .copyWith(
+                                      color: globalCtx.darkColor.shade900),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 25),
+                      _buildStartShoppingButton(),
+                      const SizedBox(height: 45),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(color: context.darkColor.shade900),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 25),
+                        Text(
+                          "HABERLER VE ÖZEL FIRSATLAR İÇİN E-POSTA ADRESİNİ KAYDET!",
+                          style: context.textTheme.title2Emphasized
+                              .copyWith(color: globalCtx.whiteColor.shade100),
+                        ),
+                        const SizedBox(height: 25),
+                        CustomTextField(
+                            suffixIcon: Icon(
+                              Icons.arrow_forward_outlined,
+                              color: context.darkColor.shade900,
+                              weight: 16,
+                            ),
+                            padding: 16,
+                            labelText: "E-posta adresiniz",
+                            isRequired: false),
+                        const SizedBox(height: 25),
+                        Assets.images.boardGuy.image(),
+                        const SizedBox(height: 25),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 25),
+                const HomeInfoboxList(),
+                const SizedBox(height: 25),
+                Assets.images.infos.image(),
+                const SizedBox(height: 25),
               ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStartShoppingButton() {
+    return Row(
+      children: [
+        CustomElevatedButton(
+          icon: const Icon(Icons.arrow_forward_outlined),
+          text: "ALIŞVERİŞE BAŞLA",
+          isPrimary: false,
+          buttonSize: ButtonSize.medium,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategoryImages(
+      {required String title,
+      required Widget img,
+      required void Function() onTap}) {
+    return AnimatedFadeButton(
+      onTap: onTap,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          img,
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: CustomElevatedButton(
+              text: title,
+              buttonSize: ButtonSize.small,
             ),
           )
         ],
