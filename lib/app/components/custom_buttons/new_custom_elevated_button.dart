@@ -14,6 +14,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool enabled;
   final VisualDensity visualDensity;
   final double? height;
+  final double? buttonWidth;
   final EdgeInsetsGeometry padding;
 
   final bool isPrimary;
@@ -32,6 +33,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.text,
     this.icon,
     this.height,
+    this.buttonWidth,
     this.onButtonPressed,
     this.buttonSize = ButtonSize.large,
     this.customColor,
@@ -80,8 +82,7 @@ class CustomElevatedButton extends StatelessWidget {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(15),
       color: context.whiteColor.shade50,
-      border:
-          Border.all(color: customColor ?? context.whiteColor.shade500),
+      border: Border.all(color: customColor ?? context.darkColor.shade500),
     );
   }
 
@@ -113,42 +114,38 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       ignoring: !enabled,
-      child: NewAnimatedFadeButton(
+      child: AnimatedFadeButton(
         onTap: () async {
           await handleButtonPressed(context);
         },
         child: Container(
+          width: buttonWidth,
           height: buttonHeight,
           padding: padding,
           decoration: getButtonStyle(context),
-          child: Center(
-            child: needUseRow
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      icon!,
-                      const SizedBox(width: 5),
-                      Text(text!, style: getButtonTextStyle(context)),
-                    ],
-                  )
-                : hasIcon
-                    ? icon
-                    : hasText
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 0,
-                              vertical: 0,
+          child: needUseRow
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(text!, style: getButtonTextStyle(context)),
+                    const SizedBox(width: 10),
+                    icon!,
+                  ],
+                )
+              : hasIcon
+                  ? icon
+                  : hasText
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              text!,
+                              style: getButtonTextStyle(context),
                             ),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                text!,
-                                style: getButtonTextStyle(context),
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
-          ),
+                          ],
+                        )
+                      : const SizedBox(),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/feature/auth/view/splash_page.dart';
+import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 BuildContext get globalCtx =>
@@ -13,10 +14,10 @@ final router = GoRouter(
       builder: (BuildContext context, GoRouterState state) =>
           const SplashPage(),
       routes: <GoRoute>[
-        // GoRoute(
-        //     path: LoginPage.routeName.makeGoRouterPath,
-        //     builder: (BuildContext context, GoRouterState state) =>
-        //         const LoginPage()),
+        GoRoute(
+            path: HomePage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) =>
+                const HomePage()),
       ],
     ),
   ],

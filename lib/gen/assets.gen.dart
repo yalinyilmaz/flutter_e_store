@@ -12,12 +12,48 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/advertisement_img.png
+  AssetGenImage get advertisementImg =>
+      const AssetGenImage('assets/images/advertisement_img.png');
+
+  /// File path: assets/images/example_img.png
+  AssetGenImage get exampleImg =>
+      const AssetGenImage('assets/images/example_img.png');
+
+  /// File path: assets/images/female.png
+  AssetGenImage get female => const AssetGenImage('assets/images/female.png');
+
+  /// File path: assets/images/kid.png
+  AssetGenImage get kid => const AssetGenImage('assets/images/kid.png');
+
   /// File path: assets/images/main_logo.png
   AssetGenImage get mainLogo =>
       const AssetGenImage('assets/images/main_logo.png');
 
+  /// File path: assets/images/male.png
+  AssetGenImage get male => const AssetGenImage('assets/images/male.png');
+
+  /// File path: assets/images/shoes1.png
+  AssetGenImage get shoes1 => const AssetGenImage('assets/images/shoes1.png');
+
+  /// File path: assets/images/shoes2.png
+  AssetGenImage get shoes2 => const AssetGenImage('assets/images/shoes2.png');
+
+  /// File path: assets/images/shoes3.png
+  AssetGenImage get shoes3 => const AssetGenImage('assets/images/shoes3.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [mainLogo];
+  List<AssetGenImage> get values => [
+        advertisementImg,
+        exampleImg,
+        female,
+        kid,
+        mainLogo,
+        male,
+        shoes1,
+        shoes2,
+        shoes3
+      ];
 }
 
 class Assets {

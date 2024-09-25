@@ -4,8 +4,7 @@ import 'package:simple_animations/simple_animations.dart';
 
 import 'new_fade_zoom_transition.dart';
 
-
-class NewAnimatedFadeButton extends StatefulWidget {
+class AnimatedFadeButton extends StatefulWidget {
   final Widget child;
   final Duration? duration;
   final VoidCallback onTap;
@@ -13,7 +12,7 @@ class NewAnimatedFadeButton extends StatefulWidget {
   final double minValue;
   final HitTestBehavior behavior;
 
-  const NewAnimatedFadeButton({
+  const AnimatedFadeButton({
     super.key,
     required this.child,
     this.duration,
@@ -24,10 +23,10 @@ class NewAnimatedFadeButton extends StatefulWidget {
   });
 
   @override
-  State<NewAnimatedFadeButton> createState() => _NewAnimatedFadeButtonState();
+  State<AnimatedFadeButton> createState() => _AnimatedFadeButtonState();
 }
 
-class _NewAnimatedFadeButtonState extends State<NewAnimatedFadeButton>
+class _AnimatedFadeButtonState extends State<AnimatedFadeButton>
     with AnimationMixin {
   late Animation<double> _animation;
   late AnimationController _visibleController;
@@ -53,7 +52,7 @@ class _NewAnimatedFadeButtonState extends State<NewAnimatedFadeButton>
   }
 
   @override
-  void didUpdateWidget(covariant NewAnimatedFadeButton oldWidget) {
+  void didUpdateWidget(covariant AnimatedFadeButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     // if (oldWidget.visible != widget.visible) {
     _visibleController.animateTo(widget.visible ? 1.0 : 0.0);
