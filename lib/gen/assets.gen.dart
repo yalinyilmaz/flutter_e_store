@@ -24,8 +24,16 @@ class $AssetsImagesGen {
   AssetGenImage get exampleImg =>
       const AssetGenImage('assets/images/example_img.png');
 
+  /// File path: assets/images/facebook_icon.png
+  AssetGenImage get facebookIcon =>
+      const AssetGenImage('assets/images/facebook_icon.png');
+
   /// File path: assets/images/female.png
   AssetGenImage get female => const AssetGenImage('assets/images/female.png');
+
+  /// File path: assets/images/google_icon.png
+  AssetGenImage get googleIcon =>
+      const AssetGenImage('assets/images/google_icon.png');
 
   /// File path: assets/images/infos.png
   AssetGenImage get infos => const AssetGenImage('assets/images/infos.png');
@@ -54,7 +62,9 @@ class $AssetsImagesGen {
         advertisementImg,
         boardGuy,
         exampleImg,
+        facebookIcon,
         female,
+        googleIcon,
         infos,
         kid,
         mainLogo,

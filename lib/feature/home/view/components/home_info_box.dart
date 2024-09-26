@@ -27,6 +27,7 @@ class HomeInfoBox extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
+                      color: context.whiteColor.shade100,
                       border: Border.all(color: context.greyColor.shade300),
                     ),
                     child: Padding(

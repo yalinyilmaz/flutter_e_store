@@ -209,7 +209,8 @@ class _CompCustomTextfieldState extends State<CustomTextField> {
           decoration: BoxDecoration(
               color: context.whiteColor.shade100,
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: context.greyColor.shade300)),
+              border: Border.all(
+                  color: hasError ? Colors.red : context.greyColor.shade300)),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: widget.padding),
             child: Center(
@@ -280,20 +281,17 @@ class _CompCustomTextfieldState extends State<CustomTextField> {
           ),
         ),
         hasError
-            ? Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        liveError ?? "",
-                        style: context.textTheme.footnoteRegular
-                            .copyWith(color: Colors.red),
-                      ),
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      liveError ?? "",
+                      style: context.textTheme.footnoteRegular
+                          .copyWith(color: Colors.red),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )
             : const SizedBox.shrink(),
       ],

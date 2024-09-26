@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/inputfields/custom_text_field.dart';
+import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
+import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePageHeader extends StatelessWidget {
   const HomePageHeader({
@@ -33,7 +36,9 @@ class HomePageHeader extends StatelessWidget {
                 Assets.images.mainLogo.image(scale: 2),
                 const Spacer(),
                 AnimatedFadeButton(
-                    onTap: () {},
+                    onTap: () {
+                      globalCtx.go(LoginPage.routeName);
+                    },
                     child: Icon(Icons.person_outlined,
                         color: context.darkColor.shade500)),
                 const SizedBox(width: 10),

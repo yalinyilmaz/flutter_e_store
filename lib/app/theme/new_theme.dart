@@ -120,7 +120,7 @@ extension TextThemeExtension on TextTheme {
   ///CAPTION1's           =>           //** FONTSİZE - 12 **//
 
   TextStyle get caption1Regular =>
-      const TextStyle(color: Color(0xff4E4E4E)).newRegular.newSize(12);
+      const TextStyle(color: Colors.black).newRegular.newSize(12);
 
   TextStyle get caption1Emphasized =>
       const TextStyle(color: Colors.black).semiEmphasized.newSize(12);

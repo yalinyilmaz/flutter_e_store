@@ -16,6 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? height;
   final double? buttonWidth;
   final EdgeInsetsGeometry padding;
+  final TextStyle? textStyle;
 
   final bool isPrimary;
   final ButtonSize buttonSize;
@@ -41,6 +42,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.enabled = true,
     this.visualDensity = VisualDensity.standard,
     this.padding = const EdgeInsets.symmetric(horizontal: 12),
+    this.textStyle,
   });
 
   Future cbAsAsyncFuture(BuildContext context) =>
@@ -75,7 +77,7 @@ class CustomElevatedButton extends StatelessWidget {
     if (isPrimary) {
       return BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: globalCtx.darkColor.shade900,
+        color: customColor ?? globalCtx.darkColor.shade900,
       );
     }
 
@@ -87,6 +89,10 @@ class CustomElevatedButton extends StatelessWidget {
   }
 
   TextStyle getButtonTextStyle(BuildContext context) {
+    if (textStyle != null) {
+      return textStyle!;
+    }
+
     if (!enabled) {
       return buttonHeight > 55
           ? context.textTheme.title2Medium
@@ -137,6 +143,7 @@ class CustomElevatedButton extends StatelessWidget {
                   ? icon
                   : hasText
                       ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
