@@ -52,4 +52,23 @@ class AuthManager {
       AppStore.setAppIdle();
     }
   }
+
+  Future<void> userLoginWithGoogle() async {
+    try {
+      log('Starting user login with google process');
+      AppStore.setAppBussy();
+      User? user =
+          await api.firbaseAuth.signInWithGoogle();
+      if (user != null) {
+        log('User logged in successfully: ${user.uid}');
+      } else {
+        log('User login failed: user is null');
+      }
+      AppStore.setAppIdle();
+      globalCtx.go(HomePage.routeName);
+    } catch (e) {
+      log('Error in userRegister: $e');
+      AppStore.setAppIdle();
+    }
+  }
 }

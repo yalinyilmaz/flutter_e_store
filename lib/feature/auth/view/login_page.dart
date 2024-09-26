@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Assets.images.mainLogo.image(scale: 1.7),
                 const SizedBox(height: 20),
-                LoginCard(),
+                const LoginCard(),
                 const SizedBox(height: 20),
                 Text(
                   "Henüz Üye Değil Misiniz?",

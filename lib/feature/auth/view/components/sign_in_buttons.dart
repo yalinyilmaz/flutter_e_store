@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
+import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
+import 'package:flutter_e_store/main.dart';
 import 'package:go_router/go_router.dart';
 
 class SignInButtons extends StatelessWidget {
@@ -40,7 +42,9 @@ class SignInButtons extends StatelessWidget {
                 isPrimary: false,
                 icon: Assets.images.googleIcon.image(width: 30),
                 text: "Google ile Bağlan",
-                onButtonPressed: (p0) {},
+                onButtonPressed: (p0) {
+                  container.read(authManagerProvider).userLoginWithGoogle();
+                },
               ),
             ),
           ],
