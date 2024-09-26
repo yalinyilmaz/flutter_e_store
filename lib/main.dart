@@ -1,4 +1,5 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
@@ -7,11 +8,15 @@ import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'firebase_options.dart';
 
 final ProviderContainer container = ProviderContainer();
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(UncontrolledProviderScope(container: container, child: const MyApp()));

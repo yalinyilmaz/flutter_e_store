@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_e_store/app/components/custom_checkbox/custom_checkbox.dart';
 import 'package:flutter_e_store/app/components/inputfields/custom_text_field.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
