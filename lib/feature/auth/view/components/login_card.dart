@@ -6,14 +6,24 @@ import 'package:flutter_e_store/app/components/inputfields/custom_text_field.dar
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
+import 'package:flutter_e_store/core/validators/email_validator.dart';
+import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
+import 'package:flutter_e_store/main.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class LoginCard extends StatelessWidget {
-  LoginCard({
+class LoginCard extends StatefulWidget {
+  const LoginCard({
     super.key,
   });
 
+  @override
+  State<LoginCard> createState() => _LoginCardState();
+}
+
+class _LoginCardState extends State<LoginCard> {
   final isChecked = ValueNotifier<bool>(false);
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +44,10 @@ class LoginCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              onChanged: (value) {
+                setState(() {});
+              },
+              controller: emailTextController,
               labelText: "E-mail",
               isRequired: false,
               validator: (p0) {
@@ -47,6 +61,10 @@ class LoginCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              onChanged: (value) {
+                setState(() {});
+              },
+              controller: passwordTextController,
               labelText: "Şifre",
               isRequired: false,
               suffixBuilder: (obscured, hovering) => Icon(
@@ -94,12 +112,16 @@ class LoginCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomElevatedButton(
-                    enabled: true,
+                    enabled: _isSignInBtnEnable(),
                     textStyle: context.textTheme.bodyEmphasized
                         .copyWith(color: context.whiteColor.shade100),
                     customColor: const Color.fromARGB(255, 133, 78, 187),
                     text: "Giriş Yap",
-                    onButtonPressed: (p0) {},
+                    onButtonPressed: (p0) {
+                      container.read(authManagerProvider).userLogin(
+                          email: emailTextController.text,
+                          password: passwordTextController.text);
+                    },
                   ),
                 ),
               ],
@@ -109,4 +131,8 @@ class LoginCard extends StatelessWidget {
       ),
     );
   }
+
+  bool _isSignInBtnEnable() =>
+      NewEmailValidator().isValid(emailTextController.text) &&
+      passwordTextController.text.length > 5;
 }

@@ -46,6 +46,8 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_gen: ^5.4.0
   firebase_core: ^3.5.0
+  firebase_auth: ^5.3.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_test:

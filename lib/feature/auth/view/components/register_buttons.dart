@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
+import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
+import 'package:flutter_e_store/main.dart';
 import 'package:go_router/go_router.dart';
 
 class RegisterButtons extends StatelessWidget {
   const RegisterButtons({
     super.key,
+    required this.passwordTextController,
+    required this.emailTextController,
   });
+
+  final TextEditingController emailTextController;
+  final TextEditingController passwordTextController;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +39,11 @@ class RegisterButtons extends StatelessWidget {
                 .copyWith(color: context.whiteColor.shade100),
             customColor: const Color.fromARGB(255, 133, 78, 187),
             text: "Üye Ol",
-            onButtonPressed: (p0) {},
+            onButtonPressed: (p0) async {
+              container.read(authManagerProvider).userRegister(
+                  email: emailTextController.text,
+                  password: passwordTextController.text);
+            },
           ),
         ),
       ],

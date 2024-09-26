@@ -14,6 +14,8 @@ class RegisterCard extends StatelessWidget {
 
   final _selectedGender = ValueNotifier<String?>(null);
   final phoneTextController = TextEditingController(text: "+90 ");
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class RegisterCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              controller: emailTextController,
               labelText: "E-mail",
               isRequired: true,
               validator: (p0) {
@@ -67,6 +70,7 @@ class RegisterCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              controller: passwordTextController,
               labelText: "Şifre",
               isRequired: true,
               suffixBuilder: (obscured, hovering) => Icon(
@@ -143,7 +147,10 @@ class RegisterCard extends StatelessWidget {
             const SizedBox(height: 15),
             const Conracts(),
             const SizedBox(height: 15),
-            const RegisterButtons(),
+            RegisterButtons(
+              emailTextController: emailTextController,
+              passwordTextController: passwordTextController,
+            ),
           ],
         ),
       ),

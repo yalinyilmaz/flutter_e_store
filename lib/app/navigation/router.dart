@@ -23,7 +23,7 @@ final router = GoRouter(
         GoRoute(
             path: LoginPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
-               const LoginPage()),
+              const LoginPage()),
         GoRoute(
             path: RegisterPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>

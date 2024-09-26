@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +14,22 @@ import 'firebase_options.dart';
 
 final ProviderContainer container = ProviderContainer();
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+void main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    log('Initializing Firebase...');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    log('Firebase initialized successfully');
+    runApp(
+        UncontrolledProviderScope(container: container, child: const MyApp()));
+  } catch (e) {
+    log('Error initializing Firebase: $e');
+    // You might want to show an error dialog or screen here
+  }
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(UncontrolledProviderScope(container: container, child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
