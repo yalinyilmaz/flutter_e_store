@@ -47,4 +47,12 @@ class UserAuthClient {
     log('User signed in successfully: ${userCredential.user?.uid}');
     return userCredential.user;
   }
+
+  Future<void> logout() async {
+    await firebaseAuth.signOut();
+  }
+
+  Future<void> deleteAccount() async {
+    await firebaseAuth.currentUser?.delete();
+  }
 }

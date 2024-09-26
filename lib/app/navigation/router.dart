@@ -3,6 +3,7 @@ import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/auth/view/splash_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_page.dart';
+import 'package:flutter_e_store/feature/home/view/home_profile_page.dart';
 import 'package:go_router/go_router.dart';
 
 BuildContext get globalCtx =>
@@ -28,6 +29,10 @@ final router = GoRouter(
             path: RegisterPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
               const RegisterPage()),
+        GoRoute(
+            path: ProfilePage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) =>
+                const ProfilePage()),
       ],
     ),
   ],
