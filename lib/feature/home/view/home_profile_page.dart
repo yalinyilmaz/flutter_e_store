@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
+import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
@@ -21,6 +22,7 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 30),
+                const Row(children: [BackButton()]),
                 CircleAvatar(
                   backgroundColor: context.greyColor.shade500.withOpacity(.4),
                   radius: 40,
@@ -43,7 +45,16 @@ class ProfilePage extends StatelessWidget {
                         enabled: true,
                         text: "Çıkış Yap",
                         onButtonPressed: (p0) {
-                          container.read(authManagerProvider).logout();
+                          MessageDialog.twoButtons(
+                              backButtonText: "Vazgeç",
+                              forwardButtonText: "Onayla",
+                              onForwardButtonPressed: () {
+                                container.read(authManagerProvider).logout();
+                              },
+                              purpose: MessageDialogPurpose.warning,
+                              caption: "Bilgilendirme",
+                              content:
+                                  "Çıkış yapmak istediğinize emin misiniz?");
                         },
                       ),
                     ),
@@ -59,7 +70,18 @@ class ProfilePage extends StatelessWidget {
                         isPrimary: false,
                         text: "Hesabı Sil",
                         onButtonPressed: (p0) {
-                          container.read(authManagerProvider).deleteAccount();
+                          MessageDialog.twoButtons(
+                              backButtonText: "Vazgeç",
+                              forwardButtonText: "Onayla",
+                              onForwardButtonPressed: () {
+                                container
+                                    .read(authManagerProvider)
+                                    .deleteAccount();
+                              },
+                              purpose: MessageDialogPurpose.warning,
+                              caption: "Bilgilendirme",
+                              content:
+                                  "Hesabınız kalıcı olarak silinecektir.Oynaylıyor musunuz?");
                         },
                       ),
                     ),

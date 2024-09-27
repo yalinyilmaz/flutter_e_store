@@ -1,6 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
+import 'package:flutter_e_store/app/navigation/router.dart';
+import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
+import 'package:flutter_e_store/feature/auth/view/login_page.dart';
+import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/home/model/infobox_content_model.dart';
 import 'package:flutter_e_store/feature/home/view/components/home_info_box.dart';
+import 'package:flutter_e_store/feature/home/view/home_profile_page.dart';
+import 'package:flutter_e_store/main.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeInfoboxList extends StatelessWidget {
   const HomeInfoboxList({super.key});
@@ -86,11 +95,45 @@ class HomeInfoboxList extends StatelessWidget {
           contents: [
             InfoboxContentModel(
               subtitle: "Yeni Üyelik",
-              onTap: () {},
+              onTap: () {
+                if (FirebaseAuth.instance.currentUser == null) {
+                  globalCtx.go(RegisterPage.routeName);
+                } else {
+                  MessageDialog.twoButtons(
+                    backButtonText: "Vazgeç",
+                    forwardButtonText: "Onayla",
+                    onForwardButtonPressed: () async{
+                      await container.read(authManagerProvider).logout();
+                      globalCtx.go(RegisterPage.routeName);
+                    },
+                    purpose: MessageDialogPurpose.warning,
+                    caption: "Bilgilendirme",
+                    content:
+                        "Bu işlemi yapabilmek için önce hesabınızdan çıkış yapmanız gerekmektedir.Çıkış yapmak istediğinize emin misiniz?",
+                  );
+                }
+              },
             ),
             InfoboxContentModel(
               subtitle: "Üye Girişi",
-              onTap: () {},
+              onTap: () {
+                if (FirebaseAuth.instance.currentUser == null) {
+                  globalCtx.go(LoginPage.routeName);
+                } else {
+                  MessageDialog.twoButtons(
+                    backButtonText: "Vazgeç",
+                    forwardButtonText: "Onayla",
+                    onForwardButtonPressed: () async{
+                      await container.read(authManagerProvider).logout();
+                      globalCtx.go(LoginPage.routeName);
+                    },
+                    purpose: MessageDialogPurpose.warning,
+                    caption: "Bilgilendirme",
+                    content:
+                        "Bu işlemi yapabilmek için hesabınızdan çıkış yapmanız gerekmektedir.Çıkış yapmak istediğinize emin misiniz?",
+                  );
+                }
+              },
             ),
             InfoboxContentModel(
               subtitle: "Şifremi Unuttum",

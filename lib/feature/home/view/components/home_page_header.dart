@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class HomePageHeader extends StatelessWidget {
                 AnimatedFadeButton(
                     onTap: () {
                       if(FirebaseAuth.instance.currentUser == null){
-                        globalCtx.go(LoginPage.routeName);
+                        globalCtx.push(LoginPage.routeName);
                       }else{
                         globalCtx.push(ProfilePage.routeName);
                       }

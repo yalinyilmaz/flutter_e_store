@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/feature/auth/view/components/login_card.dart';
 import 'package:flutter_e_store/feature/auth/view/components/sign_in_buttons.dart';
+import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -22,6 +25,11 @@ class LoginPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 Assets.images.mainLogo.image(scale: 1.7),
+                Row(children: [BackButton(
+                  onPressed: () {
+                    globalCtx.go(HomePage.routeName);
+                  },
+                )]),
                 const SizedBox(height: 20),
                 const LoginCard(),
                 const SizedBox(height: 20),
@@ -40,5 +48,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-

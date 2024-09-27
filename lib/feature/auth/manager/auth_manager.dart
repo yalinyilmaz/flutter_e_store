@@ -79,7 +79,7 @@ class AuthManager {
       AppStore.setAppBussy();
       await api.firbaseAuth.logout();
       AppStore.setAppIdle();
-      globalCtx.go(LoginPage.routeName);
+      globalCtx.go(HomePage.routeName);
     } on Exception catch (e) {
       log(e.toString());
     }

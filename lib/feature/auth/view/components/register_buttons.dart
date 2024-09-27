@@ -3,6 +3,7 @@ import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevate
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
+import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/main.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,7 +28,7 @@ class RegisterButtons extends StatelessWidget {
                 .copyWith(color: context.whiteColor.shade100),
             text: "İptal",
             onButtonPressed: (p0) {
-              globalCtx.pop();
+              globalCtx.go(HomePage.routeName);
             },
           ),
         ),
