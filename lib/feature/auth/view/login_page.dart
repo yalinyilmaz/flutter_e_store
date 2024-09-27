@@ -25,11 +25,13 @@ class LoginPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 Assets.images.mainLogo.image(scale: 1.7),
-                Row(children: [BackButton(
-                  onPressed: () {
-                    globalCtx.go(HomePage.routeName);
-                  },
-                )]),
+                Row(children: [
+                  BackButton(
+                    onPressed: () {
+                      globalCtx.go(HomePage.routeName);
+                    },
+                  )
+                ]),
                 const SizedBox(height: 20),
                 const LoginCard(),
                 const SizedBox(height: 20),

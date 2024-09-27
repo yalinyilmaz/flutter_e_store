@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/feature/auth/manager/auth_manager.dart';
+import 'package:flutter_e_store/feature/auth/view/admin_login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/home/model/infobox_content_model.dart';
@@ -102,7 +103,7 @@ class HomeInfoboxList extends StatelessWidget {
                   MessageDialog.twoButtons(
                     backButtonText: "Vazgeç",
                     forwardButtonText: "Onayla",
-                    onForwardButtonPressed: () async{
+                    onForwardButtonPressed: () async {
                       await container.read(authManagerProvider).logout();
                       globalCtx.go(RegisterPage.routeName);
                     },
@@ -123,7 +124,7 @@ class HomeInfoboxList extends StatelessWidget {
                   MessageDialog.twoButtons(
                     backButtonText: "Vazgeç",
                     forwardButtonText: "Onayla",
-                    onForwardButtonPressed: () async{
+                    onForwardButtonPressed: () async {
                       await container.read(authManagerProvider).logout();
                       globalCtx.go(LoginPage.routeName);
                     },
@@ -138,6 +139,12 @@ class HomeInfoboxList extends StatelessWidget {
             InfoboxContentModel(
               subtitle: "Şifremi Unuttum",
               onTap: () {},
+            ),
+            InfoboxContentModel(
+              subtitle: "Yönetim Paneline Geç",
+              onTap: () {
+                globalCtx.go(AdminLoginPage.routeName);
+              },
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
+import 'package:flutter_e_store/feature/auth/view/choose_your_panel.dart';
 import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
@@ -19,8 +20,8 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(2.seconds, () {
-        // 2 saniye sonra auth sayfasına gidilecek.
-        globalCtx.go(HomePage.routeName);
+        // 2 saniye sonra panel seçimi sayfasına gidilecek.
+        globalCtx.go(ChoosePanelPage.routeName);
       });
     });
   }

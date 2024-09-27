@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/feature/auth/view/admin_login_page.dart';
+import 'package:flutter_e_store/feature/auth/view/choose_your_panel.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/auth/view/splash_page.dart';
@@ -18,17 +20,25 @@ final router = GoRouter(
           const SplashPage(),
       routes: <GoRoute>[
         GoRoute(
+            path: ChoosePanelPage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) =>
+                const ChoosePanelPage()),
+        GoRoute(
+            path: AdminLoginPage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) =>
+                const AdminLoginPage()),
+        GoRoute(
             path: HomePage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
                 const HomePage()),
         GoRoute(
             path: LoginPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
-              const LoginPage()),
+                const LoginPage()),
         GoRoute(
             path: RegisterPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
-              const RegisterPage()),
+                const RegisterPage()),
         GoRoute(
             path: ProfilePage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
