@@ -7,4 +7,7 @@ part 'product_client.g.dart';
 
 abstract class ProductClient {
   factory ProductClient(Dio dio, {String baseUrl}) = _ProductClient;
+
+  @GET("/products")
+  Future<void> getProductList();
 }

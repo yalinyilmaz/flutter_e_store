@@ -22,8 +22,9 @@ class ApiClient {
   final ApiConfig config;
 
   late final UserAuthClient firbaseAuth = UserAuthClient();
-  
-  late final ProductClient product = ProductClient(dio,baseUrl: config.baseApiUrl);
+
+  late final ProductClient product =
+      ProductClient(dio, baseUrl: config.baseApiUrl);
 
   Dio? _dio;
 
@@ -34,13 +35,12 @@ class ApiClient {
       ..options.receiveTimeout = 120.seconds
       ..options.headers = {
         'Authorization': 'Bearer AX5FTZ7UBAABUDT6XYYPW7LX',
-        "Grant-Type":"Authorization-Code",
-        'Auth-URL': 'https://testcase.myideasoft.ide/panel/auth',
-        'Access-Token-URL': 'https://testcase.myideasoft.ide/oauth/v2/token',
-        'Client-ID': '7_7d67dc7597f034d63775c1d9ae5d9ac7f5750197f',
-        'Client-Secret': '1sowg0oogc4wg4w4o4gh4va57gggwskkgo08m44ksog8kmu88o',
-        'Scope': 'catalog_read',
-        'State': '2b33fdd45jbevd6nam',
+        // 'Auth-URL': 'https://testcase.myideasoft.ide/panel/auth',
+        // 'Access-Token-URL': 'https://testcase.myideasoft.ide/oauth/v2/token',
+        // 'Client-ID': '7_7d67dc7597f034d63775c1d9ae5d9ac7f5750197f',
+        // 'Client-Secret': '1sowg0oogc4wg4w4o4gh4va57gggwskkgo08m44ksog8kmu88o',
+        // 'Scope': 'catalog_read',
+        // 'State': '2b33fdd45jbevd6nam',
       }
       ..interceptors.addAll([
         ErrorHandlerInterceptor(),
