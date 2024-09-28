@@ -55,6 +55,7 @@ dependencies:
   html_unescape: ^2.0.0
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
