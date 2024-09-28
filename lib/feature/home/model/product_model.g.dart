@@ -14,8 +14,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       price1: (json['price1'] as num?)?.toDouble(),
       currency:
           CurrencyModel.fromJson(json['currency'] as Map<String, dynamic>),
-      images: (json['images'] as List<dynamic>)
-          .map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

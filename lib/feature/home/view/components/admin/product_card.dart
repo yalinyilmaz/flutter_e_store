@@ -3,6 +3,7 @@ import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/formatter/money_formatter.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
+import 'package:flutter_e_store/gen/assets.gen.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -21,8 +22,10 @@ class ProductCard extends StatelessWidget {
           border: Border.all(color: const Color.fromARGB(255, 133, 78, 187)),
           borderRadius: BorderRadius.circular(12),
           image: DecorationImage(
-            image: NetworkImage("https:${product.images[0].thumbUrl}"),
-            fit: BoxFit.cover,
+            image: product.images!.isNotEmpty
+                ? NetworkImage("https:${product.images![0].thumbUrl}")
+                : Assets.images.mainLogo.provider(),
+            fit: product.images!.isEmpty ? BoxFit.fill : BoxFit.cover,
           ),
         ),
         child: Column(
@@ -37,11 +40,11 @@ class ProductCard extends StatelessWidget {
                     switch (result) {
                       case 'edit':
                         // TODO: Implement edit functionality
-                        
+
                         break;
                       case 'delete':
                         // TODO: Implement delete functionality
-                        
+
                         break;
                     }
                   },

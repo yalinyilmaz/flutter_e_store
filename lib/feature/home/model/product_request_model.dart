@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/currency_request_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,7 +14,7 @@ class ProductRequestModel {
   final String sku;
   final int stockAmount;
   final double price1;
-  final CurrencyRequestModel currency;
+  final CurrencyModel currency;
   final int discountType;
   final int taxIncluded;
   final String stockTypeLabel;
@@ -20,7 +23,7 @@ class ProductRequestModel {
   final int status;
   final int hasOption;
   final int categoryShowcaseStatus;
-  final List<ImageModel> images;
+  final List<dynamic>? images;
 
   ProductRequestModel(
       {required this.id,
@@ -37,7 +40,7 @@ class ProductRequestModel {
       this.status = 1,
       this.hasOption = 0,
       this.categoryShowcaseStatus = 1,
-      required this.images});
+      this.images});
 
   factory ProductRequestModel.fromJson(Map<String, dynamic> data) =>
       _$ProductRequestModelFromJson(data);

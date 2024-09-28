@@ -4,6 +4,8 @@ import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevate
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
+import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
+import 'package:flutter_e_store/main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductBody extends StatefulWidget {
@@ -30,6 +32,13 @@ class _MyWidgetState extends State<AddProductBody> {
               customColor: const Color.fromARGB(255, 133, 78, 187),
               buttonSize: ButtonSize.small,
               text: "Ürünü Ekle",
+              onButtonPressed: (p0) {
+                if (image != null) {
+                  container
+                      .read(productManagerProvider)
+                      .addProduct(image: image!);
+                }
+              },
             ),
             const SizedBox(height: 20),
             Container(

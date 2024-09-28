@@ -13,8 +13,8 @@ ProductRequestModel _$ProductRequestModelFromJson(Map<String, dynamic> json) =>
       sku: json['sku'] as String,
       stockAmount: (json['stockAmount'] as num?)?.toInt() ?? 10,
       price1: (json['price1'] as num).toDouble(),
-      currency: CurrencyRequestModel.fromJson(
-          json['currency'] as Map<String, dynamic>),
+      currency:
+          CurrencyModel.fromJson(json['currency'] as Map<String, dynamic>),
       discountType: (json['discountType'] as num?)?.toInt() ?? 1,
       taxIncluded: (json['taxIncluded'] as num?)?.toInt() ?? 1,
       stockTypeLabel: json['stockTypeLabel'] as String? ?? "Piece",
@@ -25,9 +25,7 @@ ProductRequestModel _$ProductRequestModelFromJson(Map<String, dynamic> json) =>
       hasOption: (json['hasOption'] as num?)?.toInt() ?? 0,
       categoryShowcaseStatus:
           (json['categoryShowcaseStatus'] as num?)?.toInt() ?? 1,
-      images: (json['images'] as List<dynamic>)
-          .map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      images: json['images'] as List<dynamic>?,
     );
 
 Map<String, dynamic> _$ProductRequestModelToJson(

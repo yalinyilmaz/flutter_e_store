@@ -12,7 +12,7 @@ class ProductModel {
   final double stockAmount;
   final double? price1;
   final CurrencyModel currency;
-  final List<ImageModel> images;
+  final List<ImageModel>? images;
 
   ProductModel(
       {required this.id,
@@ -21,7 +21,7 @@ class ProductModel {
       required this.stockAmount,
       this.price1,
       required this.currency,
-      required this.images});
+      this.images});
 
   factory ProductModel.fromJson(Map<String, dynamic> data) =>
       _$ProductModelFromJson(data);

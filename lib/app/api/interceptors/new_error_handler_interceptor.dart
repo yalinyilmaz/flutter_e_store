@@ -8,14 +8,13 @@ class ErrorHandlerInterceptor implements Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     String message = '';
 
-
     log("************** interceptor on error built ***********************");
+    log(err.toString());
 
     if (_passRequest) {
       return handler.reject(err);
     }
   }
-  
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -24,6 +23,6 @@ class ErrorHandlerInterceptor implements Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-      handler.next(response);
+    handler.next(response);
   }
 }
