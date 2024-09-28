@@ -8,8 +8,9 @@ part of 'product_model.dart';
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       id: (json['id'] as num).toInt(),
-      fullName: json['fullName'] as String,
-      stockAmount: (json['stockAmount'] as num?)?.toDouble(),
+      name: json['name'] as String,
+      sku: json['sku'] as String,
+      stockAmount: (json['stockAmount'] as num).toDouble(),
       price1: (json['price1'] as num?)?.toDouble(),
       currency:
           CurrencyModel.fromJson(json['currency'] as Map<String, dynamic>),
@@ -21,7 +22,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'fullName': instance.fullName,
+      'name': instance.name,
+      'sku': instance.sku,
       'stockAmount': instance.stockAmount,
       'price1': instance.price1,
       'currency': instance.currency,

@@ -80,7 +80,7 @@ class ProductCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 4.0),
                     child: Text(
-                      product.fullName,
+                      product.name,
                       style: TextStyle(color: globalCtx.whiteColor.shade100),
                     ),
                   ),
