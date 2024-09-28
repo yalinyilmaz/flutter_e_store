@@ -51,13 +51,23 @@
 	
 	<key>CFBundleURLTypes</key>
 	<array>
+		<!-- Mevcut Google Sign-In yapılandırması -->
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.530454827530-ndu1m9b0t4ki9paasahpgukmcm6m6onj</string>
-			</array>
+				<array>
+					<string>com.googleusercontent.apps.530454827530-ndu1m9b0t4ki9paasahpgukmcm6m6onj</string>
+				</array>
+		</dict>
+		<!-- Yeni özel URL şeması -->
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+				<array>
+					<string>flutterestore</string>
+				</array>
 		</dict>
 	</array>
 </dict>
