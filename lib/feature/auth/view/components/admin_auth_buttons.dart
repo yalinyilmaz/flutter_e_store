@@ -38,6 +38,7 @@ class AdminAuthButtons extends StatelessWidget {
             customColor: const Color.fromARGB(255, 133, 78, 187),
             text: "Mağazanı Kaydet",
             onButtonPressed: (p0) async {
+              container.read(productManagerProvider).getProductList();
               context.go(AdminHomePage.routeName);
             },
           ),

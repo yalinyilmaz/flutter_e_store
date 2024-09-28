@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'product_client.g.dart';
@@ -9,5 +10,5 @@ abstract class ProductClient {
   factory ProductClient(Dio dio, {String baseUrl}) = _ProductClient;
 
   @GET("/products")
-  Future<void> getProductList();
+  Future<List<ProductModel>> getProductList();
 }
