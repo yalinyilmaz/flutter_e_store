@@ -5,10 +5,10 @@ import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
-import 'package:flutter_e_store/feature/home/view/components/home_get_news_from_us.dart';
-import 'package:flutter_e_store/feature/home/view/components/home_infobox_list.dart';
-import 'package:flutter_e_store/feature/home/view/components/home_page_header.dart';
-import 'package:flutter_e_store/feature/home/view/components/home_proceed_shopping.dart';
+import 'package:flutter_e_store/feature/home/view/components/storeFront/home_get_news_from_us.dart';
+import 'package:flutter_e_store/feature/home/view/components/storeFront/home_infobox_list.dart';
+import 'package:flutter_e_store/feature/home/view/components/storeFront/home_page_header.dart';
+import 'package:flutter_e_store/feature/home/view/components/storeFront/home_proceed_shopping.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
 

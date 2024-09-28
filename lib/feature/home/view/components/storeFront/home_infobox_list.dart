@@ -7,7 +7,7 @@ import 'package:flutter_e_store/feature/auth/view/admin_login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/home/model/infobox_content_model.dart';
-import 'package:flutter_e_store/feature/home/view/components/home_info_box.dart';
+import 'package:flutter_e_store/feature/home/view/components/storeFront/home_info_box.dart';
 import 'package:flutter_e_store/main.dart';
 import 'package:go_router/go_router.dart';
 
