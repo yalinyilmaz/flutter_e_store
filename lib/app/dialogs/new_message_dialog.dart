@@ -78,6 +78,7 @@ class MessageDialog {
     dynamic content,
     EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
     String buttonText = 'Tamam',
+    Color? textColor
   }) {
     return showDialog(
       context: globalCtx,
@@ -87,19 +88,24 @@ class MessageDialog {
         content: content,
         purpose: purpose,
         padding: padding,
-        footer: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: CustomElevatedButton(
-            text: buttonText,
-            buttonSize: ButtonSize.medium,
-            onButtonPressed: (p0) {
-              if (onButtonPressed != null) {
-                onButtonPressed.call();
-              } else {
-                globalCtx.pop();
-              }
-            },
-          ),
+        textColor: textColor,
+        footer: Row(
+          children: [
+            Expanded(
+              child: CustomElevatedButton(
+                customColor: textColor,
+                text: buttonText,
+                buttonSize: ButtonSize.medium,
+                onButtonPressed: (p0) {
+                  if (onButtonPressed != null) {
+                    onButtonPressed.call();
+                  } else {
+                    globalCtx.pop();
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -132,6 +138,7 @@ class MessageDialog {
     dynamic content,
     required Widget footer,
     EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
+    Color? textColor
   }) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
@@ -170,7 +177,7 @@ class MessageDialog {
                       ? Text(
                           caption,
                           style: globalCtx.textTheme.title1Emphasized
-                              .copyWith(color: globalCtx.darkColor.shade400),
+                              .copyWith(color: textColor ?? globalCtx.darkColor.shade400),
                         )
                       : const SizedBox.shrink(),
                   const SizedBox(height: 25),
@@ -178,7 +185,7 @@ class MessageDialog {
                       ? Text(
                           content,
                           style: globalCtx.textTheme.calloutRegular
-                              .copyWith(color: globalCtx.darkColor.shade400),
+                              .copyWith(color: textColor ?? globalCtx.darkColor.shade400),
                           textAlign: TextAlign.center,
                         )
                       : const SizedBox.shrink(),

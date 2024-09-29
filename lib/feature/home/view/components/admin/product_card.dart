@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
               if (product.images!.isNotEmpty)
                 Positioned.fill(
                   child: RotatedBox(
-                    quarterTurns: 1, // 90 derece sağa döndürme
+                    quarterTurns: 1,
                     child: Image.network(
                       "https:${product.images![0].thumbUrl}",
                       fit: BoxFit.cover,
@@ -59,7 +59,6 @@ class ProductCard extends StatelessWidget {
                               // TODO: Implement edit functionality
                               break;
                             case 'delete':
-                              // TODO: Implement delete functionality
                               container
                                   .read(productManagerProvider)
                                   .deleteProduct(id: product.id);
@@ -85,7 +84,7 @@ class ProductCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
                       borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(10)),
+                          const BorderRadius.vertical(bottom: Radius.circular(10)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
