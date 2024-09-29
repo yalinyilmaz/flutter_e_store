@@ -15,6 +15,9 @@ abstract class ProductClient {
 
   @POST("/products")
   Future<void> addProduct(
-    @Body() ProductRequestModel requestModel
-  );
+    @Body() ProductRequestModel requestModel);
+
+  @DELETE("/products/{id}")
+  Future<void> deleteProduct(
+    @Path("id") int id);
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:flutter_e_store/app/api/api.dart';
+import 'package:flutter_e_store/app/store/app_store.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
@@ -45,7 +46,7 @@ class ProductManager {
     String directoryName = '008'; // Bu değer dinamik olarak belirlenebilir
     String baseUrl = 'https://testcase.com/myassets/products/$directoryName';
     String revision = DateTime.now().millisecondsSinceEpoch.toString();
-    
+
     String thumbUrl = '$baseUrl/${fileName}_min.$extension?revision=$revision';
     String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
 
@@ -67,5 +68,13 @@ class ProductManager {
       ],
     );
     await api.product.addProduct(request);
+  }
+
+  Future<void> deleteProduct({required int id}) async {
+    AppStore.setAppBussy();
+    await api.product.deleteProduct(id);
+    ref.invalidate(getProductsProvider);
+    AppStore.setAppIdle();
+    
   }
 }
