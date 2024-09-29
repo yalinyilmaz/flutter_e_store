@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
-import 'package:flutter_e_store/feature/home/model/currency_request_model.dart';
-import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_request_model.g.dart';

@@ -1,15 +1,32 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:flutter_e_store/app/api/api.dart';
 import 'package:flutter_e_store/app/store/app_store.dart';
+import 'package:flutter_e_store/feature/home/manager/admin_home_manager.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_request_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
+
+enum Currency {
+  tl(3, "₺", "TL"),
+  usd(1, "\$", "USD"),
+  eur(2, "€", "EUR");
+
+  final int id;
+  final String symbol;
+  final String label;
+
+  const Currency(this.id, this.symbol, this.label);
+
+  static Currency fromSymbol(String symbol) {
+    return Currency.values.firstWhere((c) => c.symbol == symbol);
+  }
+
+}
 
 final getProductsProvider =
     FutureProvider.autoDispose<List<ProductModel>>((ref) async {
@@ -31,7 +48,12 @@ class ProductManager {
     return response;
   }
 
-  Future<void> addProduct({required File image}) async {
+  Future<void> addProduct(
+      {required File image,
+      required String name,
+      required double price,
+      required Currency currency,
+      }) async {
     // Dosya adını ve uzantısını al
     String fullName = image.path.split('/').last;
     String fileName = fullName.split('.').first;
@@ -51,10 +73,10 @@ class ProductManager {
     String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
 
     final request = ProductRequestModel(
-      currency: CurrencyModel(id: 1, label: "USD"),
+      currency: CurrencyModel(id: currency.id, label: currency.label),
       id: Random().nextInt(1000),
-      name: 'bebek2',
-      price1: 12,
+      name: name,
+      price1: price,
       sku: const Uuid().v4(),
       images: [
         ImageModel(
@@ -67,7 +89,10 @@ class ProductManager {
         )
       ],
     );
+    AppStore.setAppBussy();
     await api.product.addProduct(request);
+    selectedHomeFragments.value = AdminHomeFragments.productList;
+    AppStore.setAppIdle();
   }
 
   Future<void> deleteProduct({required int id}) async {
@@ -75,6 +100,5 @@ class ProductManager {
     await api.product.deleteProduct(id);
     ref.invalidate(getProductsProvider);
     AppStore.setAppIdle();
-    
   }
 }

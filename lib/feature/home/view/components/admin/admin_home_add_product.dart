@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/components/custom_buttons/new_custom_dropdown_button.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
@@ -23,6 +24,7 @@ class _MyWidgetState extends State<AddProductBody> {
   File? image;
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  Currency selectedCurrency = Currency.tl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +38,8 @@ class _MyWidgetState extends State<AddProductBody> {
               customColor: const Color.fromARGB(255, 133, 78, 187),
               buttonSize: ButtonSize.small,
               text: "Ürünü Ekle",
-              onButtonPressed: (p0) {
-                if (image == null) {
-                  MessageDialog.singleButton(
-                      purpose: MessageDialogPurpose.warning,
-                      caption: "Görsel Bulunamadı",
-                      content: "Lütfen ürün görselini ekleyiniz.",
-                      textColor: const Color.fromARGB(255, 133, 78, 187));
-                } else if (priceController.text.isEmpty ||
-                    nameController.text.isEmpty) {
-                  MessageDialog.singleButton(
-                      purpose: MessageDialogPurpose.warning,
-                      caption: "Ürün Bilgileri Eksik",
-                      content: "Lütfen ürün bilgilerini eksiksiz giriniz.",
-                      textColor: const Color.fromARGB(255, 133, 78, 187));
-                } else {
-                  container.read(productManagerProvider).addProduct(
-                        image: image!,
-                      );
-                }
+              onButtonPressed: (p0) async {
+                await _checkAndAddProduct();
               },
             ),
             const SizedBox(height: 20),
@@ -85,13 +70,32 @@ class _MyWidgetState extends State<AddProductBody> {
                             ),
                           ),
                     const SizedBox(height: 10),
-                    ProductInfoInputField(
-                      hintText: "Ürün fiyatı giriniz",
-                      controller: priceController,
-                      inputFormatters: [CustomNumberInputFormatter()],
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      onChanged: (p0) {},
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ProductInfoInputField(
+                            hintText: "Ürün fiyatı giriniz",
+                            controller: priceController,
+                            inputFormatters: [CustomNumberInputFormatter()],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true),
+                            onChanged: (p0) {},
+                          ),
+                        ),
+                        NewCustomDropdownButton(
+                          onChanged: (symbol) {
+                            selectedCurrency = Currency.fromSymbol(symbol);
+                          },
+                          initialValue: "₺",
+                          items: Currency.values.map((currency)=>currency.symbol).toList(),
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: globalCtx.whiteColor.shade100,
+                          ),
+                          customColor: const Color.fromARGB(255, 133, 78, 187),
+                        ),
+                        const SizedBox(width: 10)
+                      ],
                     ),
                     const SizedBox(height: 15),
                     ProductInfoInputField(
@@ -107,7 +111,7 @@ class _MyWidgetState extends State<AddProductBody> {
             const SizedBox(height: 10),
             AnimatedFadeButton(
               onTap: () {
-                getImage(ImageSource.camera);
+                _getImage(ImageSource.camera);
               },
               child: Container(
                 decoration: const BoxDecoration(
@@ -133,7 +137,7 @@ class _MyWidgetState extends State<AddProductBody> {
                       customColor: const Color.fromARGB(255, 133, 78, 187),
                       isPrimary: true,
                       onButtonPressed: (value) async {
-                        await getImage(ImageSource.gallery);
+                        await _getImage(ImageSource.gallery);
                       }),
                 ),
               ],
@@ -144,7 +148,33 @@ class _MyWidgetState extends State<AddProductBody> {
     );
   }
 
-  Future<void> getImage(ImageSource source) async {
+  Future<void> _checkAndAddProduct() async {
+    if (image == null) {
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Görsel Bulunamadı",
+          content: "Lütfen ürün görselini ekleyiniz.",
+          textColor: const Color.fromARGB(255, 133, 78, 187));
+    } else if (priceController.text.isEmpty || nameController.text.isEmpty) {
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Ürün Bilgileri Eksik",
+          content: "Lütfen ürün bilgilerini eksiksiz giriniz.",
+          textColor: const Color.fromARGB(255, 133, 78, 187));
+    } else {
+      await container.read(productManagerProvider).addProduct(
+          image: image!,
+          name: nameController.text,
+          price: double.tryParse(priceController.text
+                  .replaceAll(".", "")
+                  .replaceAll(",", ".")) ??
+              0,
+          currency: selectedCurrency
+              );
+    }
+  }
+
+  Future<void> _getImage(ImageSource source) async {
     final pickedImage = await picker.pickImage(source: source);
     if (pickedImage != null) {
       setState(() {
