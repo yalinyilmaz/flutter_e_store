@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'package:flutter_e_store/app/api/api.dart';
 import 'package:flutter_e_store/app/store/app_store.dart';
 import 'package:flutter_e_store/feature/home/manager/admin_home_manager.dart';
+import 'package:flutter_e_store/feature/home/model/category.dart';
+import 'package:flutter_e_store/feature/home/model/category_request_model.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
+import 'package:flutter_e_store/feature/home/model/product.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_request_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +28,6 @@ enum Currency {
   static Currency fromSymbol(String symbol) {
     return Currency.values.firstWhere((c) => c.symbol == symbol);
   }
-
 }
 
 final getProductsProvider =
@@ -48,12 +50,12 @@ class ProductManager {
     return response;
   }
 
-  Future<void> addProduct(
-      {required File image,
-      required String name,
-      required double price,
-      required Currency currency,
-      }) async {
+  Future<void> addProduct({
+    required File image,
+    required String name,
+    required double price,
+    required Currency currency,
+  }) async {
     // Dosya adını ve uzantısını al
     String fullName = image.path.split('/').last;
     String fileName = fullName.split('.').first;
@@ -72,12 +74,21 @@ class ProductManager {
     String thumbUrl = '$baseUrl/${fileName}_min.$extension?revision=$revision';
     String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
 
-    final request = ProductRequestModel(
+    int id = Random().nextInt(1000);
+    String sku = const Uuid().v4();
+    final requestAddProduct = ProductRequestModel(
       currency: CurrencyModel(id: currency.id, label: currency.label),
-      id: Random().nextInt(1000),
+      id: id,
       name: name,
       price1: price,
-      sku: const Uuid().v4(),
+      sku: sku,
+      categories: [
+        // {"id": Random().nextInt(100),
+        // "product":id,
+        // "category":1,
+        // "sortOrder":1
+        // }
+      ],
       images: [
         ImageModel(
           id: Random().nextInt(1000),
@@ -89,8 +100,14 @@ class ProductManager {
         )
       ],
     );
+    // final requestAddCategory = CategoryRequestModel(
+    //     id: id,
+    //     product: Product(id: id,fullName: name,sku: sku),
+    //     category: Category(category: 1,id: 1),
+    //     sortOrder: 1);
     AppStore.setAppBussy();
-    await api.product.addProduct(request);
+    await api.product.addProduct(requestAddProduct);
+    //await api.product.addProductCategory(requestAddCategory);
     selectedHomeFragments.value = AdminHomeFragments.productList;
     AppStore.setAppIdle();
   }

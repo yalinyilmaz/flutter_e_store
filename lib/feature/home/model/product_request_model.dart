@@ -19,6 +19,7 @@ class ProductRequestModel {
   final int status;
   final int hasOption;
   final int categoryShowcaseStatus;
+  final List<dynamic>? categories;
   final List<dynamic>? images;
 
   ProductRequestModel(
@@ -36,6 +37,7 @@ class ProductRequestModel {
       this.status = 1,
       this.hasOption = 0,
       this.categoryShowcaseStatus = 1,
+      this.categories,
       this.images});
 
   factory ProductRequestModel.fromJson(Map<String, dynamic> data) =>

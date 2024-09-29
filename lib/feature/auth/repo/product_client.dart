@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_e_store/feature/home/model/category_request_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_request_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -16,6 +17,9 @@ abstract class ProductClient {
   @POST("/products")
   Future<void> addProduct(
     @Body() ProductRequestModel requestModel);
+
+  @POST("/product_to_categories")
+  Future<void> addProductCategory(@Body() CategoryRequestModel requestModel);
 
   @DELETE("/products/{id}")
   Future<void> deleteProduct(

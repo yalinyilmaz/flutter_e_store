@@ -25,6 +25,7 @@ ProductRequestModel _$ProductRequestModelFromJson(Map<String, dynamic> json) =>
       hasOption: (json['hasOption'] as num?)?.toInt() ?? 0,
       categoryShowcaseStatus:
           (json['categoryShowcaseStatus'] as num?)?.toInt() ?? 1,
+      categories: json['categories'] as List<dynamic>?,
       images: json['images'] as List<dynamic>?,
     );
 
@@ -45,5 +46,6 @@ Map<String, dynamic> _$ProductRequestModelToJson(
       'status': instance.status,
       'hasOption': instance.hasOption,
       'categoryShowcaseStatus': instance.categoryShowcaseStatus,
+      'categories': instance.categories,
       'images': instance.images,
     };
