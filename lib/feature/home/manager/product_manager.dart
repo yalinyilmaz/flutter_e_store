@@ -75,10 +75,14 @@ class ProductManager {
     required String name,
     required double price,
     required Currency currency,
+    CategoryModel? categoryModel,
   }) async {
     int id = Random().nextInt(1000);
     String sku = const Uuid().v4();
-
+    List categories = [];
+    if (categoryModel != null){
+      categories.add(categoryModel);
+    }
     List<ImageModel> imageModels = await _generateImageModels(images);
 
     final requestAddProduct = ProductRequestModel(
@@ -87,7 +91,7 @@ class ProductManager {
       name: name,
       price1: price,
       sku: sku,
-      categories: [],
+      categories: categories ,
       images: imageModels,
     );
 

@@ -8,6 +8,9 @@ import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
 import 'package:flutter_e_store/core/formatter/custom_number_input_formatter.dart';
 import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
+import 'package:flutter_e_store/feature/home/model/category_model.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/admin_add_product_choose_category.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/admin_add_product_image_preview.dart';
 import 'package:flutter_e_store/feature/home/view/components/admin/admin_add_product_inputfield.dart';
 import 'package:flutter_e_store/main.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +25,7 @@ class AddProductBody extends StatefulWidget {
 class _MyWidgetState extends State<AddProductBody> {
   final picker = ImagePicker();
   List<File> images = [];
+  CategoryModel? selectedCategory;
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Currency selectedCurrency = Currency.tl;
@@ -42,7 +46,8 @@ class _MyWidgetState extends State<AddProductBody> {
   }
 
   void _onScroll() {
-    final itemWidth = MediaQuery.of(context).size.height / 2.5 + 16; // Image width + padding
+    final itemWidth =
+        MediaQuery.of(context).size.height / 2.5 + 16; // Image width + padding
     final newPageIndex = (_scrollController.offset / itemWidth).round();
     if (newPageIndex != _currentPageIndex) {
       setState(() {
@@ -77,66 +82,10 @@ class _MyWidgetState extends State<AddProductBody> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                        height: MediaQuery.sizeOf(context).height / 2.5,
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: index < images.length
-                                  ? Image.file(
-                                      images[index],
-                                      height:
-                                          MediaQuery.sizeOf(context).height /
-                                              2.5,
-                                      width: MediaQuery.sizeOf(context).height /
-                                          2.5,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 133, 78, 187),
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      width: MediaQuery.sizeOf(context).height /
-                                          2.5,
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          color:
-                                              Color.fromARGB(255, 133, 78, 187),
-                                          size: 55,
-                                        ),
-                                      ),
-                                    ),
-                            );
-                          },
-                        )),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        3,
-                        (index) => Container(
-                          width: 8,
-                          height: 8,
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: index == _currentPageIndex
-                                ? const Color.fromARGB(255, 133, 78, 187)
-                                : Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
+                    ImagePreviewList(
+                        scrollController: _scrollController,
+                        images: images,
+                        currentPageIndex: _currentPageIndex),
                     Row(
                       children: [
                         Expanded(
@@ -171,6 +120,28 @@ class _MyWidgetState extends State<AddProductBody> {
                       hintText: "Ürün adı giriniz",
                       controller: nameController,
                       onChanged: (p0) {},
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Kategori Seçimi(Zorunlu değil)",
+                            style: context.textTheme.subheadlineRegular
+                                .copyWith(
+                                    color:
+                                        const Color.fromARGB(255, 133, 78, 187),
+                                    fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    ChooseCategory(
+                      onSelected: (selected) {
+                        selectedCategory = selected;
+                      },
                     ),
                     const SizedBox(height: 15),
                   ],
@@ -238,7 +209,8 @@ class _MyWidgetState extends State<AddProductBody> {
                   .replaceAll(".", "")
                   .replaceAll(",", ".")) ??
               0,
-          currency: selectedCurrency);
+          currency: selectedCurrency,
+          categoryModel: selectedCategory);
     }
   }
 
