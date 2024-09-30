@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/dialogs/edit_product_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
-import 'package:flutter_e_store/core/formatter/custom_number_input_formatter.dart';
 import 'package:flutter_e_store/core/formatter/money_formatter.dart';
 import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_add_product_inputfield.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:flutter_e_store/main.dart';
-import 'package:go_router/go_router.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({

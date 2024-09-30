@@ -10,9 +10,11 @@ class ChooseCategory extends ConsumerStatefulWidget {
     super.key,
     required this.onSelected,
     this.initialValue,
+    this.showAllButton = false,
   });
 
   final String? initialValue;
+  final bool showAllButton;
   final void Function(CategoryModel) onSelected;
 
   @override
@@ -47,42 +49,47 @@ class _ChooseCategoryState extends ConsumerState<ChooseCategory> {
                     builder: (context, e, r) {
                       return Row(
                         children: [
-                          const SizedBox(width: 10),
-                          AnimatedFadeButton(
-                            onTap: () {
-                              selectedCategory.value = "";
-                              ref
-                                  .read(selectedCategoryProvider.notifier)
-                                  .state = "";
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: selectedCategory.value!.isEmpty
-                                    ? const Color.fromARGB(255, 133, 78, 187)
-                                    : null,
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 133, 78, 187),
-                                ),
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Tümü",
-                                    style: context.textTheme.bodyEmphasized
-                                        .copyWith(
+                          SizedBox(width: widget.showAllButton ? 10 : 0),
+                          widget.showAllButton
+                              ? AnimatedFadeButton(
+                                  onTap: () {
+                                    selectedCategory.value = "";
+                                    ref
+                                        .read(selectedCategoryProvider.notifier)
+                                        .state = "";
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
                                       color: selectedCategory.value!.isEmpty
-                                          ? context.whiteColor.shade100
-                                          : const Color.fromARGB(
-                                              255, 133, 78, 187),
+                                          ? const Color.fromARGB(
+                                              255, 133, 78, 187)
+                                          : null,
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 133, 78, 187),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Tümü",
+                                          style: context
+                                              .textTheme.bodyEmphasized
+                                              .copyWith(
+                                            color: selectedCategory
+                                                    .value!.isEmpty
+                                                ? context.whiteColor.shade100
+                                                : const Color.fromARGB(
+                                                    255, 133, 78, 187),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
+                                )
+                              : const SizedBox.shrink(),
                           Row(
                             children: categories.map((category) {
                               return Padding(

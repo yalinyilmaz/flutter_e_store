@@ -25,6 +25,7 @@ class ProductsListPage extends ConsumerWidget {
             const ProductPageHeader(),
             const SizedBox(height: 15),
             ChooseCategory(
+              showAllButton: true,
               onSelected: (category) {
                 ref.read(selectedCategoryProvider.notifier).state =
                     category.name;
