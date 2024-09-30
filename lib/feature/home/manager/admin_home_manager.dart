@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_category_list_body.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_home_add_product_body.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_home_product_list_body.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_home_profile_body.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/bodies/admin_category_list_body.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/bodies/admin_home_add_product_body.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/bodies/admin_home_product_list_body.dart';
+import 'package:flutter_e_store/feature/home/view/components/admin/bodies/admin_home_profile_body.dart';
 
 enum AdminHomeFragments {
   categories,
