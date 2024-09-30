@@ -5,70 +5,89 @@ import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
 import 'package:flutter_e_store/feature/home/model/category_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChooseCategory extends ConsumerWidget {
-  ChooseCategory({
+class ChooseCategory extends ConsumerStatefulWidget {
+  const ChooseCategory({
     super.key,
-    required this.onSelected
+    required this.onSelected,
+    this.initialValue,
   });
 
-  final selectedCategory = ValueNotifier<String>("");
+  final String? initialValue;
   final void Function(CategoryModel) onSelected;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ChooseCategory> createState() => _ChooseCategoryState();
+}
+
+class _ChooseCategoryState extends ConsumerState<ChooseCategory> {
+  late ValueNotifier<String?> selectedCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory = ValueNotifier<String>(widget.initialValue ?? "");
+  }
+
+  @override
+  void dispose() {
+    selectedCategory.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ref.watch(getCategoriesProvider).when(
           data: (categories) {
             return SizedBox(
               height: 40,
-              child: ListView.builder(
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  final category = categories[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: ValueListenableBuilder(
+                child: Row(
+                  children: categories.map((category) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: ValueListenableBuilder(
                         valueListenable: selectedCategory,
                         builder: (context, e, r) {
                           return AnimatedFadeButton(
                             onTap: () {
                               selectedCategory.value = category.name;
-                              onSelected.call(category);
+                              widget.onSelected.call(category);
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: selectedCategory.value == category.name
-                                      ? const Color.fromARGB(255, 133, 78, 187)
-                                      : null,
-                                  borderRadius: BorderRadius.circular(25),
-                                  border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 133, 78, 187))),
+                                color: selectedCategory.value == category.name
+                                    ? const Color.fromARGB(255, 133, 78, 187)
+                                    : null,
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(
+                                  color: const Color.fromARGB(255, 133, 78, 187),
+                                ),
+                              ),
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     category.name,
-                                    style: context.textTheme.bodyEmphasized
-                                        .copyWith(
-                                            color: selectedCategory.value ==
-                                                    category.name
-                                                ? context.whiteColor.shade100
-                                                : const Color.fromARGB(
-                                                    255, 133, 78, 187)),
+                                    style: context.textTheme.bodyEmphasized.copyWith(
+                                      color: selectedCategory.value == category.name
+                                          ? context.whiteColor.shade100
+                                          : const Color.fromARGB(255, 133, 78, 187),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           );
-                        }),
-                  );
-                },
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             );
           },
-          error: (error, stackTrace) =>
-              const Center(child: Text("Bir Hata Oluştu.")),
+          error: (error, stackTrace) => const Center(child: Text("Bir Hata Oluştu.")),
           loading: () => const Center(child: CircularProgressIndicator()),
         );
   }

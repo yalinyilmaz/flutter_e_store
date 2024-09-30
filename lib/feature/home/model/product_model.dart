@@ -1,3 +1,4 @@
+import 'package:flutter_e_store/feature/home/model/category_model.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -12,6 +13,7 @@ class ProductModel {
   final double stockAmount;
   double? price1;
   final CurrencyModel currency;
+  List<CategoryModel>? categories;
   final List<ImageModel>? images;
 
   ProductModel(
@@ -21,6 +23,7 @@ class ProductModel {
       required this.stockAmount,
       this.price1,
       required this.currency,
+      this.categories,
       this.images});
 
   factory ProductModel.fromJson(Map<String, dynamic> data) =>

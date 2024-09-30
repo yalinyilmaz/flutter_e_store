@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
+import 'package:flutter_e_store/app/dialogs/edit_product_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/formatter/custom_number_input_formatter.dart';
@@ -132,70 +133,13 @@ class ProductCard extends StatelessWidget {
         text: MoneyFormatter.formatAll(product.price1 ?? 0));
 
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Ürünü Düzenle',
-            style: context.textTheme.title3Emphasized
-                .copyWith(color: const Color.fromARGB(255, 133, 78, 187)),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ProductInfoInputField(
-                hintText: "Ürün adı giriniz",
-                controller: nameController,
-                onChanged: (p0) {},
-              ),
-              const SizedBox(height: 16),
-              ProductInfoInputField(
-                hintText: "Ürün fiyatı giriniz",
-                controller: priceController,
-                onChanged: (p0) {},
-                inputFormatters: [CustomNumberInputFormatter()],
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomElevatedButton(
-                      buttonSize: ButtonSize.small,
-                      text: "İptal",
-                      onButtonPressed: (p0) {
-                        context.pop();
-                      },
-                      isPrimary: false,
-                      customColor: const Color.fromARGB(255, 133, 78, 187),
-                    ),
-                  ),
-                  const SizedBox(width: 7),
-                  Expanded(
-                    child: CustomElevatedButton(
-                      buttonSize: ButtonSize.small,
-                      text: "Kaydet",
-                      onButtonPressed: (p0) {
-                        product.name = nameController.text;
-                        product.price1 = double.tryParse(priceController.text
-                            .replaceAll(".", "")
-                            .replaceAll(",", "."));
-                        container
-                            .read(productManagerProvider)
-                            .editProduct(id: product.id, product: product);
-                        globalCtx.pop();
-                      },
-                      isPrimary: true,
-                      customColor: const Color.fromARGB(255, 133, 78, 187),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        );
+        return EditProductDialog(
+            nameController: nameController,
+            priceController: priceController,
+            product: product);
       },
     );
   }
