@@ -7,10 +7,17 @@ import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/main.dart';
 import 'package:go_router/go_router.dart';
 
-class ProductListHeader extends StatelessWidget {
-  const ProductListHeader({
-    super.key,
-  });
+class ProductPageHeader extends StatefulWidget {
+  const ProductPageHeader({super.key, this.showSearchBar = true});
+
+  final bool showSearchBar;
+
+  @override
+  State<ProductPageHeader> createState() => _ProductPageHeaderState();
+}
+
+class _ProductPageHeaderState extends State<ProductPageHeader> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,9 @@ class ProductListHeader extends StatelessWidget {
             children: [
               BackButton(
                 onPressed: () {
-                  globalCtx.go(HomePage.routeName);
+                  widget.showSearchBar
+                      ? globalCtx.go(HomePage.routeName)
+                      : globalCtx.pop();
                 },
                 color: globalCtx.whiteColor.shade100,
               ),
@@ -41,31 +50,47 @@ class ProductListHeader extends StatelessWidget {
                 flex: 2,
               ),
               Text(
-                "Ürün Listesi",
+                "Ürün ${widget.showSearchBar ? "Listesi" : "Detayı"}",
                 style: context.textTheme.title3Emphasized
                     .copyWith(color: globalCtx.whiteColor.shade100),
               ),
-              const Spacer(
-                flex: 3,
-              )
+              Spacer(
+                flex: widget.showSearchBar ? 3 : 2,
+              ),
+              widget.showSearchBar
+                  ? const SizedBox.shrink()
+                  : IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                        });
+                      },
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: globalCtx.whiteColor.shade100,
+                      ),
+                    )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: CustomTextField(
-              autoFocus: true,
-              labelText: "Aramak istediğiniz ürünü yazınız",
-              onChanged: (name) {
-                container.read(searchedByProductnameProvider.notifier).state =
-                    name;
-              },
-              isRequired: false,
-              prefixIcon: Icon(
-                Icons.search_outlined,
-                color: context.darkColor.shade900,
-              ),
-            ),
-          ),
+          widget.showSearchBar
+              ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: CustomTextField(
+                    autoFocus: true,
+                    labelText: "Aramak istediğiniz ürünü yazınız",
+                    onChanged: (name) {
+                      container
+                          .read(searchedByProductnameProvider.notifier)
+                          .state = name;
+                    },
+                    isRequired: false,
+                    prefixIcon: Icon(
+                      Icons.search_outlined,
+                      color: context.darkColor.shade900,
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
 import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
 import 'package:flutter_e_store/feature/home/view/components/admin/product_card.dart';
 import 'package:flutter_e_store/feature/home/view/components/storeFront/product_list_header.dart';
+import 'package:flutter_e_store/feature/home/view/product_detail_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductsListPage extends ConsumerWidget {
   const ProductsListPage({super.key});
@@ -18,7 +21,7 @@ class ProductsListPage extends ConsumerWidget {
       child: Scaffold(
         body: Column(
           children: [
-            const ProductListHeader(),
+            const ProductPageHeader(),
             Expanded(
               child: ref.watch(getSearchedProductsProvider).when(
                     data: (products) {
@@ -37,7 +40,9 @@ class ProductsListPage extends ConsumerWidget {
                               itemBuilder: (context, index) {
                                 final product = products[index];
                                 return AnimatedFadeButton(
-                                    onTap: () {},
+                                    onTap: () {
+                                      context.push(ProductsDetailPage.routeName,extra: product);
+                                    },
                                     child: ProductCard(
                                         notEditable: true, product: product));
                               }),

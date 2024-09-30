@@ -4,9 +4,11 @@ import 'package:flutter_e_store/feature/auth/view/choose_your_panel.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/auth/view/register_page.dart';
 import 'package:flutter_e_store/feature/auth/view/splash_page.dart';
+import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/view/admin_home_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_profile_page.dart';
+import 'package:flutter_e_store/feature/home/view/product_detail_page.dart';
 import 'package:flutter_e_store/feature/home/view/products_list_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,6 +43,12 @@ final router = GoRouter(
             path: ProductsListPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
                 const ProductsListPage()),
+        GoRoute(
+            path: ProductsDetailPage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) {
+              final product = state.extra as ProductModel;
+              return ProductsDetailPage(product: product);
+            }),
         GoRoute(
             path: LoginPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
