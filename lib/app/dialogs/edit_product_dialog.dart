@@ -35,22 +35,42 @@ class EditProductDialog extends StatelessWidget {
       ),
       content: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(
+              'Ürün adı',
+              style: context.textTheme.subheadlineRegular
+                  .copyWith(color: const Color.fromARGB(255, 133, 78, 187)),
+            ),
+            const SizedBox(height: 5),
             ProductInfoInputField(
               hintText: "Ürün adı giriniz",
               controller: nameController,
               onChanged: (p0) {},
             ),
             const SizedBox(height: 16),
+            Text(
+              'Ürün fiyatı',
+              style: context.textTheme.subheadlineRegular
+                  .copyWith(color: const Color.fromARGB(255, 133, 78, 187)),
+            ),
+            const SizedBox(height: 5),
             ProductInfoInputField(
               hintText: "Ürün fiyatı giriniz",
               controller: priceController,
               onChanged: (p0) {},
               inputFormatters: [CustomNumberInputFormatter()],
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
             ),
             const SizedBox(height: 16),
+            Text(
+              'Ürün kategorisi',
+              style: context.textTheme.subheadlineRegular
+                  .copyWith(color: const Color.fromARGB(255, 133, 78, 187)),
+            ),
+            const SizedBox(height: 5),
             SizedBox(
               height: 40,
               child: ChooseCategory(
