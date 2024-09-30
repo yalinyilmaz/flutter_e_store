@@ -47,88 +47,105 @@ class _ProductsDetailPageState extends ConsumerState<ProductsDetailPage> {
         children: [
           const ProductPageHeader(showSearchBar: false),
           Expanded(
-            child: SizedBox(
-              child: Stack(
-                children: [
-                  if (widget.product.images!.isNotEmpty)
-                    Positioned.fill(
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: widget.product.images!.length,
-                        itemBuilder: (context, index) {
-                          return Image.network(
-                            "https:${widget.product.images![index].thumbUrl}",
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      ),
-                    )
-                  else
-                    Positioned.fill(
-                      child: Image(
-                        image: Assets.images.mainLogo.provider(),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  Positioned(
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    child: DotsIndicator(
-                      decorator: const DotsDecorator(
-                          activeColor: Color.fromARGB(255, 133, 78, 187)),
-                      dotsCount: widget.product.images?.length ?? 1,
-                      position: _currentPage,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
-                _buildDetailLine(
-                    title: "Ürün Fiyatı:  ",
-                    value:
-                        "${MoneyFormatter.formatAll(widget.product.price1 ?? 0)} ${widget.product.currency.label}",
-                    textStyle: globalCtx.textTheme.title2Emphasized),
-                const SizedBox(height: 10),
-                _buildDetailLine(
-                    title: "Ürün Adı:  ",
-                    value: widget.product.name,
-                    textStyle: globalCtx.textTheme.title3Regular),
-                const SizedBox(height: 10),
-                _buildDetailLine(
-                    title: "Ürün Açıklaması:  ",
-                    value: "Yok",
-                    textStyle: globalCtx.textTheme.title3Regular),
-                const SizedBox(height: 10),
-                Divider(color: context.greyColor.shade500),
-                const SizedBox(height: 10),
-                const Row(
-                  children: [
-                    Icon(Icons.location_on),
-                    SizedBox(width: 10),
-                    Text("Çankaya, Ankara")
-                  ],
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height / 1.8,
+                  child: Stack(
+                    children: [
+                      if (widget.product.images!.isNotEmpty)
+                        Positioned.fill(
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount: widget.product.images!.length,
+                            itemBuilder: (context, index) {
+                              return RotatedBox(
+                                quarterTurns: 1,
+                                child: Image.network(
+                                  "https:${widget.product.images![index].thumbUrl}",
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      else
+                        Positioned.fill(
+                          child: Image(
+                            image: Assets.images.mainLogo.provider(),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      Positioned(
+                        bottom: 20,
+                        left: 0,
+                        right: 0,
+                        child: DotsIndicator(
+                          decorator: const DotsDecorator(
+                              activeColor: Color.fromARGB(255, 133, 78, 187)),
+                          dotsCount: widget.product.images?.length ?? 1,
+                          position: _currentPage,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height / 5),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: CustomElevatedButton(
-                          customColor: const Color.fromARGB(255, 133, 78, 187),
-                          text: "Sepete Ekle",
-                          buttonSize: ButtonSize.large,
+                      _buildDetailLine(
+                          title: "Ürün Fiyatı:  ",
+                          value:
+                              "${MoneyFormatter.formatAll(widget.product.price1 ?? 0)} ${widget.product.currency.label}",
+                          textStyle: globalCtx.textTheme.title2Emphasized),
+                      const SizedBox(height: 10),
+                      _buildDetailLine(
+                          title: "Ürün Adı:  ",
+                          value: widget.product.name,
+                          textStyle: globalCtx.textTheme.title3Regular),
+                      const SizedBox(height: 10),
+                      _buildDetailLine(
+                          title: "Ürün Açıklaması:  ",
+                          value: "Yok",
+                          textStyle: globalCtx.textTheme.title3Regular),
+                      const SizedBox(height: 10),
+                      _buildDetailLine(
+                          title: "Ürün Kategorisi:  ",
+                          value: widget.product.categories!.isNotEmpty
+                              ? widget.product.categories!.first.name
+                              : "Belirtilmemiş",
+                          textStyle: globalCtx.textTheme.title3Regular),
+                      const SizedBox(height: 10),
+                      Divider(color: context.greyColor.shade500),
+                      const SizedBox(height: 10),
+                      const Row(
+                        children: [
+                          Icon(Icons.location_on),
+                          SizedBox(width: 10),
+                          Text("Çankaya, Ankara")
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CustomElevatedButton(
+                                customColor:
+                                    const Color.fromARGB(255, 133, 78, 187),
+                                text: "Sepete Ekle",
+                                buttonSize: ButtonSize.large,
+                              ),
+                            )
+                          ],
                         ),
                       )
                     ],
                   ),
-                )
+                ),
               ],
             ),
           )
