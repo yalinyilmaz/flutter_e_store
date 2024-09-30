@@ -6,17 +6,18 @@ import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/formatter/tr_phone_input_formatter.dart';
 import 'package:flutter_e_store/core/validators/tr_phone_number_validator.dart';
 import 'package:flutter_e_store/feature/auth/view/components/admin_auth_buttons.dart';
-import 'package:flutter_e_store/feature/auth/view/components/register_buttons.dart';
 import 'package:flutter_e_store/feature/auth/view/components/register_contracts.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class AdminAuthCard extends StatelessWidget {
   AdminAuthCard({super.key});
 
-  final _selectedGender = ValueNotifier<String?>(null);
-  final phoneTextController = TextEditingController(text: "+90 ");
-  final emailTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  final _selectedGender = ValueNotifier<String?>("Erkek");
+  final phoneTextController = TextEditingController(text: "+90 530 879 28 24");
+  final emailTextController =
+      TextEditingController(text: "techadmin@ideasoft.com.tr");
+  final passwordTextController = TextEditingController(text: "123456");
+  final propertyNameTextController = TextEditingController(text: "Ideasoft");
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class AdminAuthCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              controller: propertyNameTextController,
               labelText: "Mağaza Adınız",
               isRequired: true,
               validator: (p0) {
@@ -136,10 +138,11 @@ class AdminAuthCard extends StatelessWidget {
               },
             ),
             const SizedBox(height: 15),
-            const Conracts(),
-            const SizedBox(height: 15),
-            AdminAuthButtons(
+            const Conracts(
+              initialValue: true,
             ),
+            const SizedBox(height: 15),
+            const AdminAuthButtons(),
           ],
         ),
       ),

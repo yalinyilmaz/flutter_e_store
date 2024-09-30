@@ -4,9 +4,12 @@ import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 
 class Conracts extends StatelessWidget {
-  const Conracts({
+   const Conracts({
     super.key,
+    this.initialValue = false,
   });
+
+  final bool initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class Conracts extends StatelessWidget {
   }
 
   Widget _buildContract({required String text}) {
-    final isChecked = ValueNotifier<bool>(false);
+    final isChecked = ValueNotifier<bool>(initialValue);
     return Row(
       children: [
         ValueListenableBuilder(
