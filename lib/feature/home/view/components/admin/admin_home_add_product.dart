@@ -21,7 +21,7 @@ class AddProductBody extends StatefulWidget {
 
 class _MyWidgetState extends State<AddProductBody> {
   final picker = ImagePicker();
-  List<File>? images;
+  List<File> images = [];
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Currency selectedCurrency = Currency.tl;
@@ -53,33 +53,45 @@ class _MyWidgetState extends State<AddProductBody> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).height / 2.5,
-                      child: images != null && images!.isNotEmpty
-                          ? ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: images!.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.file(
-                                    images![index],
-                                    height:
-                                        MediaQuery.sizeOf(context).height / 2.5,
-                                    width:
-                                        MediaQuery.sizeOf(context).height / 2.5,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
-                            )
-                          : const Center(
-                              child: Icon(
-                                Icons.add,
-                                color: Color.fromARGB(255, 133, 78, 187),
-                                size: 55,
-                              ),
-                            ),
-                    ),
+                        height: MediaQuery.sizeOf(context).height / 2.5,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: index < images.length
+                                  ? Image.file(
+                                      images[index],
+                                      height:
+                                          MediaQuery.sizeOf(context).height /
+                                              2.5,
+                                      width: MediaQuery.sizeOf(context).height /
+                                          2.5,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 133, 78, 187),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      width: MediaQuery.sizeOf(context).height /
+                                          2.5,
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.add,
+                                          color:
+                                              Color.fromARGB(255, 133, 78, 187),
+                                          size: 55,
+                                        ),
+                                      ),
+                                    ),
+                            );
+                          },
+                        )),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -162,7 +174,7 @@ class _MyWidgetState extends State<AddProductBody> {
   }
 
   Future<void> _checkAndAddProduct() async {
-    if (images == null || images!.isEmpty) {
+    if (images.isEmpty) {
       MessageDialog.singleButton(
           purpose: MessageDialogPurpose.warning,
           caption: "Görsel Bulunamadı",
