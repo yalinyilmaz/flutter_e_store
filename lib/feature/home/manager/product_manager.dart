@@ -32,15 +32,31 @@ final searchedByProductnameProvider = StateProvider.autoDispose<String>((ref) {
   return "";
 });
 
+final selectedCategoryProvider = StateProvider.autoDispose<String>((ref) {
+  return "";
+});
+
 final getSearchedProductsProvider =
     FutureProvider.autoDispose<List<ProductModel>>((ref) async {
   final searchedProductname = ref.watch(searchedByProductnameProvider);
+  final selectedCategory = ref.watch(selectedCategoryProvider);
 
-  List<ProductModel> products = (await ref.watch(getProductsProvider.future))
-      .where((product) =>
-          (product.name).toLowerCase().contains(searchedProductname))
-      .toList();
-  return products;
+  List<ProductModel> searchedProducts =
+      (await ref.watch(getProductsProvider.future))
+          .where((product) =>
+              (product.name).toLowerCase().contains(searchedProductname))
+          .where((searchedProduct) {
+    if (selectedCategory.isEmpty) {
+      return true;
+    }
+    else if(searchedProduct.categories!.isNotEmpty) {
+      return searchedProduct.categories!.first.name.contains(selectedCategory);
+    }else{
+      return false;
+    }
+  }).toList();
+
+  return searchedProducts;
 });
 
 final getProductsProvider =
@@ -80,7 +96,7 @@ class ProductManager {
     int id = Random().nextInt(1000);
     String sku = const Uuid().v4();
     List categories = [];
-    if (categoryModel != null){
+    if (categoryModel != null) {
       categories.add(categoryModel);
     }
     List<ImageModel> imageModels = await _generateImageModels(images);
@@ -91,7 +107,7 @@ class ProductManager {
       name: name,
       price1: price,
       sku: sku,
-      categories: categories ,
+      categories: categories,
       images: imageModels,
     );
 
