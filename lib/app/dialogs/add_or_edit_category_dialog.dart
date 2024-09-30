@@ -75,8 +75,12 @@ class _AddorEditCategoryState extends State<AddorEditCategory> {
                       container
                           .read(productManagerProvider)
                           .addCategory(name: nameController.text);
-                      globalCtx.pop();
+                    } else if (!widget.forAdd) {
+                      widget.category!.name = nameController.text;
+                      container.read(productManagerProvider).editCategory(
+                          id: widget.category!.id, category: widget.category!);
                     }
+                    globalCtx.pop();
                   },
                   isPrimary: true,
                   customColor: const Color.fromARGB(255, 133, 78, 187),

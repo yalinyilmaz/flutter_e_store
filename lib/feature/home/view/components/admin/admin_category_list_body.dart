@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/dialogs/add_or_edit_category_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
 import 'package:flutter_e_store/feature/home/manager/product_manager.dart';
-import 'package:flutter_e_store/feature/home/model/category_model.dart';
-import 'package:flutter_e_store/feature/home/view/components/admin/admin_add_product_inputfield.dart';
 import 'package:flutter_e_store/feature/home/view/components/admin/category_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+
 
 class AdminHomeCategoryListBody extends ConsumerWidget {
   const AdminHomeCategoryListBody({super.key});
@@ -72,7 +69,7 @@ class AdminHomeCategoryListBody extends ConsumerWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Add New Category",
+                  "Yeni Kategori Ekle",
                   style: globalCtx.textTheme.bodyEmphasized
                       .copyWith(color: const Color.fromARGB(255, 133, 78, 187)),
                 ),
@@ -88,15 +85,16 @@ class AdminHomeCategoryListBody extends ConsumerWidget {
   }
 
   void _showAddDialog(BuildContext context) {
-
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
-        return const AddorEditCategory(title: "Yeni Kategori Ekle",buttonText: "Ekle",forAdd: true,);
+        return const AddorEditCategory(
+          title: "Yeni Kategori Ekle",
+          buttonText: "Ekle",
+          forAdd: true,
+        );
       },
     );
   }
 }
-
-

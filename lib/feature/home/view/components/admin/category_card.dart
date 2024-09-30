@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/dialogs/add_or_edit_category_dialog.dart';
 import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
@@ -53,6 +54,16 @@ class CategoryCard extends StatelessWidget {
               const Spacer(),
               AnimatedFadeButton(
                 onTap: () {
+                  _showEditDialog(context);
+                },
+                child: const Icon(
+                  Icons.edit,
+                  color: Color.fromARGB(255, 133, 78, 187),
+                ),
+              ),
+              const SizedBox(width: 10),
+              AnimatedFadeButton(
+                onTap: () {
                   MessageDialog.twoButtons(
                       backButtonText: "Vazgeç",
                       forwardButtonText: "Sil",
@@ -77,6 +88,21 @@ class CategoryCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showEditDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AddorEditCategory(
+          title: "Kategoriyi Düzenle",
+          buttonText: "Düzenle",
+          forAdd: false,
+          category: category,
+        );
+      },
     );
   }
 }

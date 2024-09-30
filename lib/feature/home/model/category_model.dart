@@ -5,7 +5,7 @@ part 'category_model.g.dart';
 @JsonSerializable()
 class CategoryModel {
   final int id;
-  final String name;
+  String name;
   final int sortOrder;
   final int status;
   final dynamic imageFile;

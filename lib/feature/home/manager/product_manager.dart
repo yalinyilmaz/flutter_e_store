@@ -164,6 +164,14 @@ class ProductManager {
     AppStore.setAppIdle();
   }
 
+  Future<void> editCategory(
+      {required int id, required CategoryModel category}) async {
+    AppStore.setAppBussy();
+    await api.product.editCategory(id, category);
+    ref.invalidate(getCategoriesProvider);
+    AppStore.setAppIdle();
+  }
+
   Future<void> deleteCategory({required int id}) async {
     AppStore.setAppBussy();
     await api.product.deleteCategory(id);
