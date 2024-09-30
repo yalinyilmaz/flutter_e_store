@@ -148,4 +148,11 @@ class ProductManager {
     final response = await api.product.getCategoryList();
     return response;
   }
+
+  Future<void> deleteCategory({required int id}) async {
+    AppStore.setAppBussy();
+    await api.product.deleteCategory(id);
+    ref.invalidate(getCategoriesProvider);
+    AppStore.setAppIdle();
+  }
 }

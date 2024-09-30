@@ -25,6 +25,9 @@ abstract class ProductClient {
   Future<void> deleteProduct(
     @Path("id") int id);
 
+  @DELETE("/categories/{id}")
+  Future<void> deleteCategory(@Path("id") int id);
+
   @PUT("/products/{id}")
   Future<void> editProduct(@Path("id") int id, @Body() ProductModel requestModel);
 }
