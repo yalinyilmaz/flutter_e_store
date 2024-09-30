@@ -188,7 +188,7 @@ class _MyWidgetState extends State<AddProductBody> {
           textColor: const Color.fromARGB(255, 133, 78, 187));
     } else {
       await container.read(productManagerProvider).addProduct(
-          image: images![0],
+          images: images,
           name: nameController.text,
           price: double.tryParse(priceController.text
                   .replaceAll(".", "")

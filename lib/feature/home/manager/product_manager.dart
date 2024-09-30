@@ -66,65 +66,63 @@ class ProductManager {
   }
 
   Future<void> addProduct({
-    required File image,
+    required List<File> images,
     required String name,
     required double price,
     required Currency currency,
   }) async {
-    // Dosya adını ve uzantısını al
-    String fullName = image.path.split('/').last;
-    String fileName = fullName.split('.').first;
-    String extension = fullName.split('.').last;
-
-    // Resmi base64'e çevir
-    List<int> imageBytes = await image.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
-    String base64ImageWithPrefix = 'data:image/jpeg;base64,$base64Image';
-
-    // Yeni URL formatını oluştur
-    String directoryName = '008'; // Bu değer dinamik olarak belirlenebilir
-    String baseUrl = 'https://testcase.com/myassets/products/$directoryName';
-    String revision = DateTime.now().millisecondsSinceEpoch.toString();
-
-    String thumbUrl = '$baseUrl/${fileName}_min.$extension?revision=$revision';
-    String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
-
     int id = Random().nextInt(1000);
     String sku = const Uuid().v4();
+    
+    List<ImageModel> imageModels = await generateImageModels(images);
+
     final requestAddProduct = ProductRequestModel(
       currency: CurrencyModel(id: currency.id, label: currency.label),
       id: id,
       name: name,
       price1: price,
       sku: sku,
-      categories: [
-        // {"id": Random().nextInt(100),
-        // "product":id,
-        // "category":1,
-        // "sortOrder":1
-        // }
-      ],
-      images: [
-        ImageModel(
-          id: Random().nextInt(1000),
-          filename: fileName,
-          extension: extension,
-          thumbUrl: thumbUrl,
-          originalUrl: originalUrl,
-          attachment: base64ImageWithPrefix, // Yeni eklenen alan
-        )
-      ],
+      categories: [],
+      images: imageModels,
     );
-    // final requestAddCategory = CategoryRequestModel(
-    //     id: id,
-    //     product: Product(id: id,fullName: name,sku: sku),
-    //     category: Category(category: 1,id: 1),
-    //     sortOrder: 1);
+
     AppStore.setAppBussy();
     await api.product.addProduct(requestAddProduct);
-    //await api.product.addProductCategory(requestAddCategory);
     selectedHomeFragments.value = AdminHomeFragments.productList;
     AppStore.setAppIdle();
+  }
+
+  Future<List<ImageModel>> generateImageModels(List<File> images) async {
+    List<ImageModel> imageModels = [];
+    String directoryName = '008'; // This value could be determined dynamically
+    String baseUrl = 'https://testcase.com/myassets/products/$directoryName';
+
+    for (File image in images) {
+      String fullName = image.path.split('/').last;
+      String fileName = fullName.split('.').first;
+      String extension = fullName.split('.').last;
+
+      List<int> imageBytes = await image.readAsBytes();
+      String base64Image = base64Encode(imageBytes);
+      String base64ImageWithPrefix = 'data:image/jpeg;base64,$base64Image';
+
+      String revision = DateTime.now().millisecondsSinceEpoch.toString();
+      String thumbUrl = '$baseUrl/${fileName}_min.$extension?revision=$revision';
+      String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
+
+      ImageModel imageModel = ImageModel(
+        id: Random().nextInt(1000),
+        filename: fileName,
+        extension: extension,
+        thumbUrl: thumbUrl,
+        originalUrl: originalUrl,
+        attachment: base64ImageWithPrefix,
+      );
+
+      imageModels.add(imageModel);
+    }
+
+    return imageModels;
   }
 
   Future<void> deleteProduct({required int id}) async {
