@@ -26,7 +26,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         if (FirebaseAuth.instance.currentUser == null) {
-          globalCtx.push(LoginPage.routeName);
+          globalCtx.go(LoginPage.routeName);
         } else {
           globalCtx.go(ProductsListPage.routeName);
         }
