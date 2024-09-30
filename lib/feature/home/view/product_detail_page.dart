@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
@@ -7,14 +8,39 @@ import 'package:flutter_e_store/feature/home/view/components/storeFront/product_
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductsDetailPage extends ConsumerWidget {
+class ProductsDetailPage extends ConsumerStatefulWidget {
   const ProductsDetailPage({super.key, required this.product});
   static const routeName = "/home/product_detail";
 
   final ProductModel product;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProductsDetailPage> createState() => _ProductsDetailPageState();
+}
+
+class _ProductsDetailPageState extends ConsumerState<ProductsDetailPage> {
+  late PageController _pageController;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = (_pageController.page ?? 0).toInt();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
@@ -23,14 +49,17 @@ class ProductsDetailPage extends ConsumerWidget {
             child: SizedBox(
               child: Stack(
                 children: [
-                  if (product.images!.isNotEmpty)
+                  if (widget.product.images!.isNotEmpty)
                     Positioned.fill(
-                      child: RotatedBox(
-                        quarterTurns: 1, // 90 derece sağa döndürme
-                        child: Image.network(
-                          "https:${product.images![0].thumbUrl}",
-                          fit: BoxFit.cover,
-                        ),
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: widget.product.images!.length,
+                        itemBuilder: (context, index) {
+                          return Image.network(
+                            "https:${widget.product.images![index].thumbUrl}",
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     )
                   else
@@ -40,6 +69,16 @@ class ProductsDetailPage extends ConsumerWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
+                  Positioned(
+                    bottom: 20,
+                    left: 0,
+                    right: 0,
+                    child: DotsIndicator(
+                      decorator: const DotsDecorator(activeColor: Color.fromARGB(255, 133, 78, 187) ),
+                      dotsCount: widget.product.images?.length ?? 1,
+                      position: _currentPage,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -51,12 +90,12 @@ class ProductsDetailPage extends ConsumerWidget {
                 _buildDetailLine(
                     title: "Ürün Fiyatı:  ",
                     value:
-                        "${MoneyFormatter.formatAll(product.price1 ?? 0)} ${product.currency.label}",
+                        "${MoneyFormatter.formatAll(widget.product.price1 ?? 0)} ${widget.product.currency.label}",
                     textStyle: globalCtx.textTheme.title2Emphasized),
                 const SizedBox(height: 10),
                 _buildDetailLine(
                     title: "Ürün Adı:  ",
-                    value: product.name,
+                    value: widget.product.name,
                     textStyle: globalCtx.textTheme.title3Regular),
                 const SizedBox(height: 10),
                 _buildDetailLine(
