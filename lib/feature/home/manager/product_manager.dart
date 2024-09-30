@@ -37,7 +37,7 @@ final searchedByProductnameProvider = StateProvider.autoDispose<String>((ref) {
 final getSearchedProductsProvider =
     FutureProvider.autoDispose<List<ProductModel>>((ref) async {
   final searchedProductname = ref.watch(searchedByProductnameProvider);
-  
+
   List<ProductModel> products = (await ref.watch(getProductsProvider.future))
       .where((product) =>
           (product.name).toLowerCase().contains(searchedProductname))
@@ -130,6 +130,13 @@ class ProductManager {
   Future<void> deleteProduct({required int id}) async {
     AppStore.setAppBussy();
     await api.product.deleteProduct(id);
+    ref.invalidate(getProductsProvider);
+    AppStore.setAppIdle();
+  }
+
+  Future<void> editProduct({required int id,required ProductModel product}) async {
+    AppStore.setAppBussy();
+    await api.product.editProduct(id,product);
     ref.invalidate(getProductsProvider);
     AppStore.setAppIdle();
   }

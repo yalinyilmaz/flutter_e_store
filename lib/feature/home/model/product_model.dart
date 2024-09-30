@@ -7,10 +7,10 @@ part 'product_model.g.dart';
 @JsonSerializable()
 class ProductModel {
   final int id;
-  final String name;
+  String name;
   final String sku;
   final double stockAmount;
-  final double? price1;
+  double? price1;
   final CurrencyModel currency;
   final List<ImageModel>? images;
 
