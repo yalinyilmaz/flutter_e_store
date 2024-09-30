@@ -14,16 +14,16 @@ enum MessageDialogPurpose {
 }
 
 class MessageDialog {
-  static twoButtons({
-    required MessageDialogPurpose purpose,
-    VoidCallback? onBackButtonPressed,
-    VoidCallback? onForwardButtonPressed,
-    String? caption,
-    dynamic content,
-    EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
-    String backButtonText = 'Geri',
-    String forwardButtonText = 'İleri',
-  }) {
+  static twoButtons(
+      {required MessageDialogPurpose purpose,
+      VoidCallback? onBackButtonPressed,
+      VoidCallback? onForwardButtonPressed,
+      String? caption,
+      dynamic content,
+      EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
+      String backButtonText = 'Geri',
+      String forwardButtonText = 'İleri',
+      Color? textColor}) {
     return showDialog(
       context: globalCtx,
       barrierDismissible: false,
@@ -32,12 +32,14 @@ class MessageDialog {
         content: content,
         purpose: purpose,
         padding: padding,
+        textColor: textColor,
         footer: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Row(
             children: [
               Expanded(
                 child: CustomElevatedButton(
+                  customColor: textColor,
                   isPrimary: false,
                   text: backButtonText,
                   buttonSize: ButtonSize.medium,
@@ -53,6 +55,7 @@ class MessageDialog {
               const SizedBox(width: 10),
               Expanded(
                 child: CustomElevatedButton(
+                  customColor: textColor,
                   text: forwardButtonText,
                   buttonSize: ButtonSize.medium,
                   onButtonPressed: (p0) {
@@ -71,15 +74,14 @@ class MessageDialog {
     );
   }
 
-  static singleButton({
-    required MessageDialogPurpose purpose,
-    VoidCallback? onButtonPressed,
-    String? caption,
-    dynamic content,
-    EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
-    String buttonText = 'Tamam',
-    Color? textColor
-  }) {
+  static singleButton(
+      {required MessageDialogPurpose purpose,
+      VoidCallback? onButtonPressed,
+      String? caption,
+      dynamic content,
+      EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
+      String buttonText = 'Tamam',
+      Color? textColor}) {
     return showDialog(
       context: globalCtx,
       barrierDismissible: false,
@@ -132,14 +134,13 @@ class MessageDialog {
     );
   }
 
-  static _buildAlertBox({
-    required MessageDialogPurpose purpose,
-    String? caption,
-    dynamic content,
-    required Widget footer,
-    EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
-    Color? textColor
-  }) {
+  static _buildAlertBox(
+      {required MessageDialogPurpose purpose,
+      String? caption,
+      dynamic content,
+      required Widget footer,
+      EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20),
+      Color? textColor}) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -176,16 +177,16 @@ class MessageDialog {
                   caption != null
                       ? Text(
                           caption,
-                          style: globalCtx.textTheme.title1Emphasized
-                              .copyWith(color: textColor ?? globalCtx.darkColor.shade400),
+                          style: globalCtx.textTheme.title1Emphasized.copyWith(
+                              color: textColor ?? globalCtx.darkColor.shade400),
                         )
                       : const SizedBox.shrink(),
                   const SizedBox(height: 25),
                   content != null
                       ? Text(
                           content,
-                          style: globalCtx.textTheme.calloutRegular
-                              .copyWith(color: textColor ?? globalCtx.darkColor.shade400),
+                          style: globalCtx.textTheme.calloutRegular.copyWith(
+                              color: textColor ?? globalCtx.darkColor.shade400),
                           textAlign: TextAlign.center,
                         )
                       : const SizedBox.shrink(),
