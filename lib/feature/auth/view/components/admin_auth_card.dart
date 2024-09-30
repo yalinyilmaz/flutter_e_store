@@ -38,6 +38,7 @@ class AdminAuthCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              isReadOnly: true,
               controller: propertyNameTextController,
               labelText: "Mağaza Adınız",
               isRequired: true,
@@ -49,6 +50,7 @@ class AdminAuthCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              isReadOnly: true,
               controller: emailTextController,
               labelText: "E-mail",
               isRequired: true,
@@ -63,6 +65,7 @@ class AdminAuthCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              isReadOnly: true,
               controller: passwordTextController,
               labelText: "Şifre",
               isRequired: true,
@@ -111,6 +114,7 @@ class AdminAuthCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             CustomTextField(
+              isReadOnly: true,
               controller: phoneTextController,
               labelText: "Telefon numaranızı giriniz",
               isRequired: false,
