@@ -32,6 +32,10 @@ class AdminHomeBottomBar extends StatelessWidget {
                     fragment: AdminHomeFragments.addProduct,
                     icon: Icons.post_add),
                 _buildBottomBarBtn(
+                    title: "Kategoriler",
+                    fragment: AdminHomeFragments.categories,
+                    icon: Icons.category_outlined),
+                _buildBottomBarBtn(
                     title: "Profil",
                     fragment: AdminHomeFragments.profile,
                     icon: Icons.person),
