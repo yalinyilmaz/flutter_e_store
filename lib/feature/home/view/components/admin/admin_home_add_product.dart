@@ -21,7 +21,7 @@ class AddProductBody extends StatefulWidget {
 
 class _MyWidgetState extends State<AddProductBody> {
   final picker = ImagePicker();
-  File? image;
+  List<File>? images;
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Currency selectedCurrency = Currency.tl;
@@ -52,23 +52,34 @@ class _MyWidgetState extends State<AddProductBody> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    image != null
-                        ? Image.file(
-                            image!,
-                            height: MediaQuery.sizeOf(context).height / 2.5,
-                            width: MediaQuery.sizeOf(context).height / 2.5,
-                            fit: BoxFit.cover,
-                          )
-                        : SizedBox(
-                            height: MediaQuery.sizeOf(context).height / 2.5,
-                            child: const Center(
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height / 2.5,
+                      child: images != null && images!.isNotEmpty
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: images!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.file(
+                                    images![index],
+                                    height:
+                                        MediaQuery.sizeOf(context).height / 2.5,
+                                    width:
+                                        MediaQuery.sizeOf(context).height / 2.5,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              },
+                            )
+                          : const Center(
                               child: Icon(
                                 Icons.add,
                                 color: Color.fromARGB(255, 133, 78, 187),
                                 size: 55,
                               ),
                             ),
-                          ),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -87,7 +98,9 @@ class _MyWidgetState extends State<AddProductBody> {
                             selectedCurrency = Currency.fromSymbol(symbol);
                           },
                           initialValue: "₺",
-                          items: Currency.values.map((currency)=>currency.symbol).toList(),
+                          items: Currency.values
+                              .map((currency) => currency.symbol)
+                              .toList(),
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: globalCtx.whiteColor.shade100,
@@ -149,7 +162,7 @@ class _MyWidgetState extends State<AddProductBody> {
   }
 
   Future<void> _checkAndAddProduct() async {
-    if (image == null) {
+    if (images == null || images!.isEmpty) {
       MessageDialog.singleButton(
           purpose: MessageDialogPurpose.warning,
           caption: "Görsel Bulunamadı",
@@ -163,22 +176,28 @@ class _MyWidgetState extends State<AddProductBody> {
           textColor: const Color.fromARGB(255, 133, 78, 187));
     } else {
       await container.read(productManagerProvider).addProduct(
-          image: image!,
+          image: images![0],
           name: nameController.text,
           price: double.tryParse(priceController.text
                   .replaceAll(".", "")
                   .replaceAll(",", ".")) ??
               0,
-          currency: selectedCurrency
-              );
+          currency: selectedCurrency);
     }
   }
 
   Future<void> _getImage(ImageSource source) async {
+    if (images == null) {
+      images = [];
+    }
+    if (images!.length >= 3) {
+      print("Foto hakkınız doldu");
+      return;
+    }
     final pickedImage = await picker.pickImage(source: source);
     if (pickedImage != null) {
       setState(() {
-        image = File(pickedImage.path);
+        images!.add(File(pickedImage.path));
       });
     }
   }
