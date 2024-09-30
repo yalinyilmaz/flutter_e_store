@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevated_button.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/formatter/money_formatter.dart';
@@ -74,7 +75,8 @@ class _ProductsDetailPageState extends ConsumerState<ProductsDetailPage> {
                     left: 0,
                     right: 0,
                     child: DotsIndicator(
-                      decorator: const DotsDecorator(activeColor: Color.fromARGB(255, 133, 78, 187) ),
+                      decorator: const DotsDecorator(
+                          activeColor: Color.fromARGB(255, 133, 78, 187)),
                       dotsCount: widget.product.images?.length ?? 1,
                       position: _currentPage,
                     ),
@@ -112,7 +114,21 @@ class _ProductsDetailPageState extends ConsumerState<ProductsDetailPage> {
                     Text("Çankaya, Ankara")
                   ],
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height / 3),
+                SizedBox(height: MediaQuery.sizeOf(context).height / 5),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomElevatedButton(
+                          customColor: const Color.fromARGB(255, 133, 78, 187),
+                          text: "Sepete Ekle",
+                          buttonSize: ButtonSize.large,
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           )
