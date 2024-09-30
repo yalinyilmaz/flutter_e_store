@@ -199,18 +199,19 @@ class _MyWidgetState extends State<AddProductBody> {
   }
 
   Future<void> _getImage(ImageSource source) async {
-    if (images == null) {
-      images = [];
-    }
-    if (images!.length >= 3) {
-      print("Foto hakkınız doldu");
-      return;
-    }
-    final pickedImage = await picker.pickImage(source: source);
-    if (pickedImage != null) {
-      setState(() {
-        images!.add(File(pickedImage.path));
-      });
+    if (images.length >= 3) {
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          textColor: const Color.fromARGB(255, 133, 78, 187),
+          caption: "Bilgilendirme",
+          content: "En fazla 3 adet görsel ekleyebilirsiniz!");
+    } else {
+      final pickedImage = await picker.pickImage(source: source);
+      if (pickedImage != null) {
+        setState(() {
+          images.add(File(pickedImage.path));
+        });
+      }
     }
   }
 }
