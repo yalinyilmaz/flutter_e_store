@@ -25,6 +25,31 @@ class _MyWidgetState extends State<AddProductBody> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   Currency selectedCurrency = Currency.tl;
+  final ScrollController _scrollController = ScrollController();
+  int _currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final itemWidth = MediaQuery.of(context).size.height / 2.5 + 16; // Image width + padding
+    final newPageIndex = (_scrollController.offset / itemWidth).round();
+    if (newPageIndex != _currentPageIndex) {
+      setState(() {
+        _currentPageIndex = newPageIndex;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +80,7 @@ class _MyWidgetState extends State<AddProductBody> {
                     SizedBox(
                         height: MediaQuery.sizeOf(context).height / 2.5,
                         child: ListView.builder(
+                          controller: _scrollController,
                           scrollDirection: Axis.horizontal,
                           itemCount: 3,
                           itemBuilder: (context, index) {
@@ -92,6 +118,24 @@ class _MyWidgetState extends State<AddProductBody> {
                             );
                           },
                         )),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        3,
+                        (index) => Container(
+                          width: 8,
+                          height: 8,
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: index == _currentPageIndex
+                                ? const Color.fromARGB(255, 133, 78, 187)
+                                : Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
