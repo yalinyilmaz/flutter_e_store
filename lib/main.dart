@@ -22,8 +22,9 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     log('Firebase initialized successfully');
-    runApp(
-        UncontrolledProviderScope(container: container, child: const MyApp()));
+    runApp(UncontrolledProviderScope(
+        container: container,
+        child: const MyApp()));
   } catch (e) {
     log('Error initializing Firebase: $e');
     // You might want to show an error dialog or screen here

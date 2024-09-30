@@ -9,6 +9,7 @@ import 'package:flutter_e_store/feature/home/view/components/storeFront/home_get
 import 'package:flutter_e_store/feature/home/view/components/storeFront/home_infobox_list.dart';
 import 'package:flutter_e_store/feature/home/view/components/storeFront/home_page_header.dart';
 import 'package:flutter_e_store/feature/home/view/components/storeFront/home_proceed_shopping.dart';
+import 'package:flutter_e_store/feature/home/view/products_list_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +45,8 @@ class HomePage extends StatelessWidget {
                           onButtonPressed: (p0) {
                             if (FirebaseAuth.instance.currentUser == null) {
                               globalCtx.push(LoginPage.routeName);
+                            } else {
+                              globalCtx.push(ProductsListPage.routeName);
                             }
                           },
                           icon: const Icon(Icons.arrow_forward_outlined),
@@ -99,6 +102,8 @@ class HomePage extends StatelessWidget {
                               onButtonPressed: (p0) {
                                 if (FirebaseAuth.instance.currentUser == null) {
                                   globalCtx.push(LoginPage.routeName);
+                                } else {
+                                  globalCtx.push(ProductsListPage.routeName);
                                 }
                               },
                               icon: const Icon(Icons.arrow_forward_outlined),

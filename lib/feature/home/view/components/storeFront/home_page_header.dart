@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_e_store/app/components/inputfields/custom_text_field.dart';
@@ -7,13 +6,34 @@ import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/core/button_animation/new_animated_fade_button.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_profile_page.dart';
+import 'package:flutter_e_store/feature/home/view/products_list_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePageHeader extends StatelessWidget {
+class HomePageHeader extends StatefulWidget {
   const HomePageHeader({
     super.key,
   });
+
+  @override
+  State<HomePageHeader> createState() => _HomePageHeaderState();
+}
+
+class _HomePageHeaderState extends State<HomePageHeader> {
+  FocusNode focusNode = FocusNode();
+  @override
+  void initState() {
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        if (FirebaseAuth.instance.currentUser == null) {
+          globalCtx.push(LoginPage.routeName);
+        } else {
+          globalCtx.go(ProductsListPage.routeName);
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +60,9 @@ class HomePageHeader extends StatelessWidget {
                 const Spacer(),
                 AnimatedFadeButton(
                     onTap: () {
-                      if(FirebaseAuth.instance.currentUser == null){
+                      if (FirebaseAuth.instance.currentUser == null) {
                         globalCtx.push(LoginPage.routeName);
-                      }else{
+                      } else {
                         globalCtx.push(ProfilePage.routeName);
                       }
                     },
@@ -65,6 +85,7 @@ class HomePageHeader extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: CustomTextField(
+              focusNode: focusNode,
               labelText: "Aramak istediğiniz ürünü yazınız",
               isRequired: false,
               prefixIcon: Icon(

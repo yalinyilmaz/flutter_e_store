@@ -7,6 +7,7 @@ import 'package:flutter_e_store/feature/auth/view/splash_page.dart';
 import 'package:flutter_e_store/feature/home/view/admin_home_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_page.dart';
 import 'package:flutter_e_store/feature/home/view/home_profile_page.dart';
+import 'package:flutter_e_store/feature/home/view/products_list_page.dart';
 import 'package:go_router/go_router.dart';
 
 BuildContext get globalCtx =>
@@ -36,6 +37,10 @@ final router = GoRouter(
             path: HomePage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>
                 const HomePage()),
+        GoRoute(
+            path: ProductsListPage.routeName.makeGoRouterPath,
+            builder: (BuildContext context, GoRouterState state) =>
+                const ProductsListPage()),
         GoRoute(
             path: LoginPage.routeName.makeGoRouterPath,
             builder: (BuildContext context, GoRouterState state) =>

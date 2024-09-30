@@ -30,6 +30,21 @@ enum Currency {
   }
 }
 
+final searchedByProductnameProvider = StateProvider.autoDispose<String>((ref) {
+  return "";
+});
+
+final getSearchedProductsProvider =
+    FutureProvider.autoDispose<List<ProductModel>>((ref) async {
+  final searchedProductname = ref.watch(searchedByProductnameProvider);
+  
+  List<ProductModel> products = (await ref.watch(getProductsProvider.future))
+      .where((product) =>
+          (product.name).toLowerCase().contains(searchedProductname))
+      .toList();
+  return products;
+});
+
 final getProductsProvider =
     FutureProvider.autoDispose<List<ProductModel>>((ref) async {
   List<ProductModel> products =

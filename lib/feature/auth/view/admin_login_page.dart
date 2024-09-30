@@ -9,22 +9,27 @@ class AdminLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        decoration: BoxDecoration(color: context.whiteColor.shade600),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-                Assets.images.mainLogo.image(scale: 1.7),
-                const SizedBox(height: 20),
-                AdminAuthCard(),
-                const SizedBox(height: 20),
-              ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: Container(
+          height: MediaQuery.sizeOf(context).height,
+          decoration: BoxDecoration(color: context.whiteColor.shade600),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  Assets.images.mainLogo.image(scale: 1.7),
+                  const SizedBox(height: 20),
+                  AdminAuthCard(),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ),

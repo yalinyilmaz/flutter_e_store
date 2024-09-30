@@ -4,6 +4,7 @@ import 'package:flutter_e_store/app/components/custom_buttons/new_custom_elevate
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/theme/new_theme.dart';
 import 'package:flutter_e_store/feature/auth/view/login_page.dart';
+import 'package:flutter_e_store/feature/home/view/products_list_page.dart';
 import 'package:flutter_e_store/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,6 +39,8 @@ class ProceedShopping extends StatelessWidget {
                   onButtonPressed: (p0) {
                     if (FirebaseAuth.instance.currentUser == null) {
                       globalCtx.push(LoginPage.routeName);
+                    } else {
+                      globalCtx.push(ProductsListPage.routeName);
                     }
                   },
                   icon: const Icon(Icons.arrow_forward_outlined),

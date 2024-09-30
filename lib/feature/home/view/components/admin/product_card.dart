@@ -11,9 +11,11 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     required this.product,
+    this.notEditable = false,
   });
 
   final ProductModel product;
+  final bool notEditable;
 
   @override
   Widget build(BuildContext context) {
@@ -47,44 +49,46 @@ class ProductCard extends StatelessWidget {
                 ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      PopupMenuButton<String>(
-                        icon: Icon(Icons.more_vert,
-                            color: globalCtx.darkColor.shade800),
-                        onSelected: (String result) {
-                          switch (result) {
-                            case 'edit':
-                              // TODO: Implement edit functionality
-                              break;
-                            case 'delete':
-                              container
-                                  .read(productManagerProvider)
-                                  .deleteProduct(id: product.id);
-                              break;
-                          }
-                        },
-                        itemBuilder: (BuildContext context) =>
-                            <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
-                            value: 'edit',
-                            child: Text('Düzenle'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'delete',
-                            child: Text('Sil'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  notEditable
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            PopupMenuButton<String>(
+                              icon: Icon(Icons.more_vert,
+                                  color: globalCtx.darkColor.shade800),
+                              onSelected: (String result) {
+                                switch (result) {
+                                  case 'edit':
+                                    // TODO: Implement edit functionality
+                                    break;
+                                  case 'delete':
+                                    container
+                                        .read(productManagerProvider)
+                                        .deleteProduct(id: product.id);
+                                    break;
+                                }
+                              },
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                const PopupMenuItem<String>(
+                                  value: 'edit',
+                                  child: Text('Düzenle'),
+                                ),
+                                const PopupMenuItem<String>(
+                                  value: 'delete',
+                                  child: Text('Sil'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                   const Spacer(),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
-                      borderRadius:
-                          const BorderRadius.vertical(bottom: Radius.circular(10)),
+                      borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(10)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
