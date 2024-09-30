@@ -4,11 +4,8 @@ import 'dart:convert';
 import 'package:flutter_e_store/app/api/api.dart';
 import 'package:flutter_e_store/app/store/app_store.dart';
 import 'package:flutter_e_store/feature/home/manager/admin_home_manager.dart';
-import 'package:flutter_e_store/feature/home/model/category.dart';
-import 'package:flutter_e_store/feature/home/model/category_request_model.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
-import 'package:flutter_e_store/feature/home/model/product.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_request_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,7 +71,7 @@ class ProductManager {
     int id = Random().nextInt(1000);
     String sku = const Uuid().v4();
     
-    List<ImageModel> imageModels = await generateImageModels(images);
+    List<ImageModel> imageModels = await _generateImageModels(images);
 
     final requestAddProduct = ProductRequestModel(
       currency: CurrencyModel(id: currency.id, label: currency.label),
@@ -92,7 +89,7 @@ class ProductManager {
     AppStore.setAppIdle();
   }
 
-  Future<List<ImageModel>> generateImageModels(List<File> images) async {
+  Future<List<ImageModel>> _generateImageModels(List<File> images) async {
     List<ImageModel> imageModels = [];
     String directoryName = '008'; // This value could be determined dynamically
     String baseUrl = 'https://testcase.com/myassets/products/$directoryName';
