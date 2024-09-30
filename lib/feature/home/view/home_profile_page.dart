@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                               purpose: MessageDialogPurpose.warning,
                               caption: "Bilgilendirme",
                               content:
-                                  "Hesabınız kalıcı olarak silinecektir.Oynaylıyor musunuz?");
+                                  "Hesabınız kalıcı olarak silinecektir.Onaylıyor musunuz?");
                         },
                       ),
                     ),
