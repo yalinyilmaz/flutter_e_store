@@ -78,7 +78,7 @@ class ProductManager {
   }) async {
     int id = Random().nextInt(1000);
     String sku = const Uuid().v4();
-    
+
     List<ImageModel> imageModels = await _generateImageModels(images);
 
     final requestAddProduct = ProductRequestModel(
@@ -112,7 +112,8 @@ class ProductManager {
       String base64ImageWithPrefix = 'data:image/jpeg;base64,$base64Image';
 
       String revision = DateTime.now().millisecondsSinceEpoch.toString();
-      String thumbUrl = '$baseUrl/${fileName}_min.$extension?revision=$revision';
+      String thumbUrl =
+          '$baseUrl/${fileName}_min.$extension?revision=$revision';
       String originalUrl = '$baseUrl/$fileName.$extension?revision=$revision';
 
       ImageModel imageModel = ImageModel(
@@ -137,9 +138,10 @@ class ProductManager {
     AppStore.setAppIdle();
   }
 
-  Future<void> editProduct({required int id,required ProductModel product}) async {
+  Future<void> editProduct(
+      {required int id, required ProductModel product}) async {
     AppStore.setAppBussy();
-    await api.product.editProduct(id,product);
+    await api.product.editProduct(id, product);
     ref.invalidate(getProductsProvider);
     AppStore.setAppIdle();
   }
@@ -147,6 +149,19 @@ class ProductManager {
   Future<List<CategoryModel>> getCategoryList() async {
     final response = await api.product.getCategoryList();
     return response;
+  }
+
+  Future<void> addCategory({
+    required String name,
+  }) async {
+    int id = Random().nextInt(1000);
+
+    final requestAddCategory = CategoryModel(id: id, name: name);
+
+    AppStore.setAppBussy();
+    await api.product.addCategory(requestAddCategory);
+    ref.invalidate(getCategoriesProvider);
+    AppStore.setAppIdle();
   }
 
   Future<void> deleteCategory({required int id}) async {
