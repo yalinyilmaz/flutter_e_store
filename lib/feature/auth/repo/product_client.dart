@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_e_store/feature/home/model/category_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_request_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -12,6 +13,9 @@ abstract class ProductClient {
 
   @GET("/products")
   Future<List<ProductModel>> getProductList();
+
+  @GET("/categories")
+  Future<List<CategoryModel>> getCategoryList();
 
   @POST("/products")
   Future<void> addProduct(

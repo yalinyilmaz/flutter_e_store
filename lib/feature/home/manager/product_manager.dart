@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_e_store/app/api/api.dart';
 import 'package:flutter_e_store/app/store/app_store.dart';
 import 'package:flutter_e_store/feature/home/manager/admin_home_manager.dart';
+import 'package:flutter_e_store/feature/home/model/category_model.dart';
 import 'package:flutter_e_store/feature/home/model/currency_model.dart';
 import 'package:flutter_e_store/feature/home/model/image_model.dart';
 import 'package:flutter_e_store/feature/home/model/product_model.dart';
@@ -47,6 +48,13 @@ final getProductsProvider =
   List<ProductModel> products =
       await ref.read(productManagerProvider).getProductList();
   return products;
+});
+
+final getCategoriesProvider =
+    FutureProvider.autoDispose<List<CategoryModel>>((ref) async {
+  List<CategoryModel> categories =
+      await ref.read(productManagerProvider).getCategoryList();
+  return categories;
 });
 
 final productManagerProvider = Provider<ProductManager>((ref) {
@@ -134,5 +142,10 @@ class ProductManager {
     await api.product.editProduct(id,product);
     ref.invalidate(getProductsProvider);
     AppStore.setAppIdle();
+  }
+
+  Future<List<CategoryModel>> getCategoryList() async {
+    final response = await api.product.getCategoryList();
+    return response;
   }
 }
