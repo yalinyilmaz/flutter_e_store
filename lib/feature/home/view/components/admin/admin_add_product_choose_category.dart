@@ -42,52 +42,100 @@ class _ChooseCategoryState extends ConsumerState<ChooseCategory> {
               height: 40,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: categories.map((category) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: ValueListenableBuilder(
-                        valueListenable: selectedCategory,
-                        builder: (context, e, r) {
-                          return AnimatedFadeButton(
+                child: ValueListenableBuilder(
+                    valueListenable: selectedCategory,
+                    builder: (context, e, r) {
+                      return Row(
+                        children: [
+                          const SizedBox(width: 10),
+                          AnimatedFadeButton(
                             onTap: () {
-                              selectedCategory.value = category.name;
-                              widget.onSelected.call(category);
+                              selectedCategory.value = "";
+                              ref
+                                  .read(selectedCategoryProvider.notifier)
+                                  .state = "";
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: selectedCategory.value == category.name
+                                color: selectedCategory.value!.isEmpty
                                     ? const Color.fromARGB(255, 133, 78, 187)
                                     : null,
                                 borderRadius: BorderRadius.circular(25),
                                 border: Border.all(
-                                  color: const Color.fromARGB(255, 133, 78, 187),
+                                  color:
+                                      const Color.fromARGB(255, 133, 78, 187),
                                 ),
                               ),
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    category.name,
-                                    style: context.textTheme.bodyEmphasized.copyWith(
-                                      color: selectedCategory.value == category.name
+                                    "Tümü",
+                                    style: context.textTheme.bodyEmphasized
+                                        .copyWith(
+                                      color: selectedCategory.value!.isEmpty
                                           ? context.whiteColor.shade100
-                                          : const Color.fromARGB(255, 133, 78, 187),
+                                          : const Color.fromARGB(
+                                              255, 133, 78, 187),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    );
-                  }).toList(),
-                ),
+                          ),
+                          Row(
+                            children: categories.map((category) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 6.0),
+                                child: AnimatedFadeButton(
+                                  onTap: () {
+                                    selectedCategory.value = category.name;
+                                    widget.onSelected.call(category);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: selectedCategory.value ==
+                                              category.name
+                                          ? const Color.fromARGB(
+                                              255, 133, 78, 187)
+                                          : null,
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 133, 78, 187),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          category.name,
+                                          style: context
+                                              .textTheme.bodyEmphasized
+                                              .copyWith(
+                                            color: selectedCategory.value ==
+                                                    category.name
+                                                ? context.whiteColor.shade100
+                                                : const Color.fromARGB(
+                                                    255, 133, 78, 187),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      );
+                    }),
               ),
             );
           },
-          error: (error, stackTrace) => const Center(child: Text("Bir Hata Oluştu.")),
+          error: (error, stackTrace) =>
+              const Center(child: Text("Bir Hata Oluştu.")),
           loading: () => const Center(child: CircularProgressIndicator()),
         );
   }
