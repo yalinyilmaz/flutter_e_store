@@ -12,12 +12,11 @@ class RegisterPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        body: Container(
-          height: MediaQuery.sizeOf(context).height,
-          decoration: BoxDecoration(color: context.whiteColor.shade600),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(color: context.whiteColor.shade600),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

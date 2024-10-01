@@ -70,6 +70,7 @@ class RegisterCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              keyboardType: TextInputType.text,
               controller: passwordTextController,
               labelText: "Şifre",
               isRequired: true,

@@ -61,6 +61,7 @@ class _LoginCardState extends State<LoginCard> {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              keyboardType: TextInputType.text,
               onChanged: (value) {
                 setState(() {});
               },
