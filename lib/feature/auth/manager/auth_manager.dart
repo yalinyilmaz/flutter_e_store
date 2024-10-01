@@ -55,7 +55,11 @@ class AuthManager {
       AppStore.setAppIdle();
       globalCtx.go(HomePage.routeName);
     } catch (e) {
-      log('Error in userRegister: $e');
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Hata Oluştu!",
+          content: e.toString());
+      log('Error in userlogin: $e');
       AppStore.setAppIdle();
     }
   }
@@ -73,7 +77,11 @@ class AuthManager {
       AppStore.setAppIdle();
       globalCtx.go(HomePage.routeName);
     } catch (e) {
-      log('Error in userRegister: $e');
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Hata Oluştu!",
+          content: e.toString());
+      log('Error in userGoogle Sign in: $e');
       AppStore.setAppIdle();
     }
   }
@@ -85,6 +93,10 @@ class AuthManager {
       AppStore.setAppIdle();
       globalCtx.go(HomePage.routeName);
     } on Exception catch (e) {
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Hata Oluştu!",
+          content: e.toString());
       log(e.toString());
     }
   }
@@ -96,6 +108,10 @@ class AuthManager {
       AppStore.setAppIdle();
       globalCtx.go(HomePage.routeName);
     } on Exception catch (e) {
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Hata Oluştu!",
+          content: e.toString());
       log(e.toString());
     }
   }
