@@ -107,6 +107,7 @@ class EditProductDialog extends StatelessWidget {
                           .replaceAll(".", "")
                           .replaceAll(",", "."));
                       if (selectedCategory != null) {
+                        product.categories = [];
                         product.categories!.add(selectedCategory!);
                       }
                       container
