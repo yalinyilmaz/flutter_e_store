@@ -2,15 +2,26 @@
 
 A new Flutter project.
 
-## Getting Started
+## ÖN BİLGİLENDİRME
 
-This project is a starting point for a Flutter application.
+Bu proje bir mobil e-ticret uygulamasının bir MVP sini yansıtmaktadır.
+Projeyi çalıştırmadan önce Flutter güncel sürümünü kullandığınızdan (3.24.3O) ve Xcode 'un yüklü olduğuna emin olun.
+Unutmayın ki firebase options sadece IOS için yapılmıştır. Projeyi IOS cihazlarda test edebilirsiniz.
 
-A few resources to get you started if this is your first Flutter project:
+## İçerik
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Projeyi açtığınızda karşınıza 2 seçenek gelecektir.Müşteri paneli ve Yönetim Paneli.
+Müşteri paneline otantike olabilmeniz için Firebase Auth kullanılmıştır. Hızlı giriş için Google ile otantike olabilirsiniz.
+Ancak normal registration da yapılabilir.
+Yönetim paneline otantike olmanıza gerek yoktur. Mağazanı kaydet butonuna basmanız yeterli olacaktır. İçeride kullanılan token ideasotf api na entgre çalışmaktadır.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Kullanılan Özellikler
+
+- Firebase Auth
+- Firebase Core
+- Google Sign In
+- Riverpod as State Management
+- Retrofit
+- Json Serializable
+- Image Picker
+
