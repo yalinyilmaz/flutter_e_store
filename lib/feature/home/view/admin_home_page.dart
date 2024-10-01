@@ -14,23 +14,26 @@ class AdminHomePage extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Fexx Yönetim Paneli",
-              style: globalCtx.textTheme.title3Emphasized
-                  .copyWith(color: globalCtx.whiteColor.shade100),
+      child: PopScope(
+        canPop: false,
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "Fexx Yönetim Paneli",
+                style: globalCtx.textTheme.title3Emphasized
+                    .copyWith(color: globalCtx.whiteColor.shade100),
+              ),
+              leading: const SizedBox(),
+              centerTitle: true,
+              backgroundColor: const Color.fromARGB(255, 133, 78, 187),
             ),
-            leading: const SizedBox(),
-            centerTitle: true,
-            backgroundColor: const Color.fromARGB(255, 133, 78, 187),
-          ),
-          body: ValueListenableBuilder(
-              valueListenable: selectedHomeFragments,
-              builder: (context, w, _) {
-                return selectedHomeFragMap[selectedHomeFragments.value]!;
-              }),
-          bottomNavigationBar: const AdminHomeBottomBar()),
+            body: ValueListenableBuilder(
+                valueListenable: selectedHomeFragments,
+                builder: (context, w, _) {
+                  return selectedHomeFragMap[selectedHomeFragments.value]!;
+                }),
+            bottomNavigationBar: const AdminHomeBottomBar()),
+      ),
     );
   }
 }
