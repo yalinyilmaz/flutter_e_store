@@ -5,7 +5,7 @@ A new Flutter project.
 ## ÖN BİLGİLENDİRME
 
 Bu proje bir mobil e-ticret uygulamasının bir MVP sini yansıtmaktadır.
-Projeyi çalıştırmadan önce Flutter güncel sürümünü kullandığınızdan (3.24.3O) ve Xcode 'un yüklü olduğuna emin olun.
+Projeyi çalıştırmadan önce Flutter güncel sürümünü kullandığınızdan (3.24.3) ve Xcode 'un yüklü olduğuna emin olun.
 Unutmayın ki firebase options sadece IOS için yapılmıştır. Projeyi IOS cihazlarda test edebilirsiniz.
 
 ## İçerik
