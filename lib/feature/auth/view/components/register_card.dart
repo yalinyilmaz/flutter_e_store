@@ -9,13 +9,25 @@ import 'package:flutter_e_store/feature/auth/view/components/register_buttons.da
 import 'package:flutter_e_store/feature/auth/view/components/register_contracts.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class RegisterCard extends StatelessWidget {
-  RegisterCard({super.key});
+class RegisterCard extends StatefulWidget {
+  const RegisterCard({super.key});
 
+  @override
+  State<RegisterCard> createState() => _RegisterCardState();
+}
+
+class _RegisterCardState extends State<RegisterCard> {
   final _selectedGender = ValueNotifier<String?>(null);
+
   final phoneTextController = TextEditingController(text: "+90 ");
+
   final emailTextController = TextEditingController();
+
   final passwordTextController = TextEditingController();
+
+  final nameTextController = TextEditingController();
+
+  final surnameTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +50,39 @@ class RegisterCard extends StatelessWidget {
             CustomTextField(
               labelText: "Ad",
               isRequired: true,
+              onChanged: (value) {
+                setState(() {
+                  nameTextController.text = value;
+                });
+              },
               validator: (p0) {
                 return MultiValidator([
-                  RequiredValidator(errorText: "Şifre alanı boş olamaz"),
+                  RequiredValidator(errorText: "Ad alanı boş olamaz"),
                 ]).call(p0);
               },
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              onChanged: (value) {
+                setState(() {
+                  surnameTextController.text = value;
+                });
+              },
               labelText: "Soyad",
               isRequired: true,
               validator: (p0) {
                 return MultiValidator([
-                  RequiredValidator(errorText: "Şifre alanı boş olamaz"),
+                  RequiredValidator(errorText: "Soyad alanı boş olamaz"),
                 ]).call(p0);
               },
             ),
             const SizedBox(height: 15),
             CustomTextField(
+              onChanged: (value) {
+                setState(() {
+                  emailTextController.text=value;
+                });
+              },
               controller: emailTextController,
               labelText: "E-mail",
               isRequired: true,
@@ -70,6 +97,11 @@ class RegisterCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             CustomTextField.obscure(
+              onChanged: (value) {
+                setState(() {
+                  passwordTextController.text = value;
+                });
+              },
               keyboardType: TextInputType.text,
               controller: passwordTextController,
               labelText: "Şifre",
@@ -134,6 +166,9 @@ class RegisterCard extends StatelessWidget {
                     TextPosition(offset: phoneTextController.text.length),
                   );
                 }
+                setState(() {
+                  phoneTextController.text = value;
+                });
               },
               validator: (p0) {
                 return MultiValidator([
@@ -149,6 +184,9 @@ class RegisterCard extends StatelessWidget {
             const Conracts(),
             const SizedBox(height: 15),
             RegisterButtons(
+              nameTextController: nameTextController,
+              surnameTextController: surnameTextController,
+              phoneTextController: phoneTextController,
               emailTextController: emailTextController,
               passwordTextController: passwordTextController,
             ),

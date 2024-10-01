@@ -75,6 +75,8 @@ class _LoginCardState extends State<LoginCard> {
               validator: (p0) {
                 return MultiValidator([
                   RequiredValidator(errorText: "Şifre alanı boş olamaz"),
+                  MinLengthValidator(6,
+                      errorText: "Şifre en az 6 karakter olmalıdır")
                 ]).call(p0);
               },
             ),

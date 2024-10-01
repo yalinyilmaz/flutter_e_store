@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_e_store/app/api/api.dart';
+import 'package:flutter_e_store/app/dialogs/new_message_dialog.dart';
 import 'package:flutter_e_store/app/navigation/router.dart';
 import 'package:flutter_e_store/app/store/app_store.dart';
 import 'package:flutter_e_store/feature/home/view/home_page.dart';
@@ -31,6 +32,10 @@ class AuthManager {
       globalCtx.go(HomePage.routeName);
     } catch (e) {
       log('Error in userRegister: $e');
+      MessageDialog.singleButton(
+          purpose: MessageDialogPurpose.warning,
+          caption: "Hata Oluştu!",
+          content: e.toString());
       AppStore.setAppIdle();
     }
   }
@@ -94,5 +99,4 @@ class AuthManager {
       log(e.toString());
     }
   }
-
 }
